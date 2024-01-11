@@ -9,9 +9,29 @@
 	<h2> 안녕하세요 ~~~~ Web !!!! </h2>
 	
 	
-	<form action="hello" method="get">
-		<input type = "text" name="id">
+	<form action="getpost" method="get">
+		<input type = "text" name="id" value="banana"> &nbsp;
+		<input type = "text" name="name" value="바나나"> &nbsp;
+		<input type = "text" name="password"> &nbsp;
 		<input type = "submit" Value="Test">
 	</form>
+	<hr>
+	<!-- ** 경로 표기
+		=> 절대 경로 : '/' 로시작, 프로젝트명부터 전체경로 표기 /web01/images/letsgo.png width="300" height="200"
+		=> 상대 경로 : 현재위치에서 시작, /로 시작하면 안됨
+			-> ./ : 현재위치, ../1단계 상위
+			-> "./images/letsgo.png", "images/letsgo.png" 동일
+		=> 다만, 리소스들은 webapp 안에 있다고 인식하기 때문에 webapp 까지는 생략 가능
+		=> 이미지 파일을 webapp 에 넣고 Project Explorer 에 폴더가 안생기면 인지하지 못함
+	 -->
+	<img alt="" src="/web01/images/letsgo.png" width="300" height="200">
+	<hr>
+	&nbsp;<a href="/web01/hello">Hello</a>&nbsp;
+	&nbsp;<a href="/web01/list">MVC01List</a>&nbsp;
+	&nbsp;<a href="/web01/life">LifeCycle</a><br>
+	&nbsp;<a href="/web01/servletTestForm/form01_Adder.html">Adder</a>&nbsp;
+	&nbsp;<a href="/web01/servletTestForm/form02_Radio.jsp">Radio</a>&nbsp;
+	&nbsp;<a href="/web01/servletTestForm/form03_Check.jsp">Check</a>&nbsp;
+	&nbsp;<a href="/web01/servletTestForm/form04_Select.jsp">Select</a><br>
 </body>
 </html>

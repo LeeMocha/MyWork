@@ -30,6 +30,4 @@
   	<url-pattern>/7seven</url-pattern>
   	<url-pattern>/seven7</url-pattern>
   </servlet-mapping>
-  
-  
 </web-app>
