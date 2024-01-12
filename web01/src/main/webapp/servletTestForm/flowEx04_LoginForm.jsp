@@ -9,7 +9,7 @@
 </head>
 <body>
 <h2>** servlet03_flow Student Login Test **</h2>
-<form action="/Web01/login" method="get">
+<form action="/web01/login" method="get">
 <table>
 	<tr height="30"><td><label for="sno">SNO</label></td>
 		<td><input type="text" id="sno" name="sno"></td>

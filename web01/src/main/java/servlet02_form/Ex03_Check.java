@@ -23,16 +23,23 @@ public class Ex03_Check extends HttpServlet {
 
 		// => CheckBox 처리
 		// -> 하나의 Name 에 복수개의 Value 들이 있음
+		// -> 또는 하나도 안들어 있을 수 있음 (예외 처리 꼭 해줘야 함)
 		// -> request.getParameterValues("gift") 를 이용해서 배열로 처리
 		String[] gift = request.getParameterValues("gift");
-		
+
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.print("<h2>** 당신이 원하는 것 : </h2>");
-		for(String s : gift) {
-			out.print("<h5>"+ s +"</h5>");
-		}
 		
+		
+		if (gift != null && gift.length>0) {
+			out.print("<h2>** 당신이 원하는 것 : </h2>");
+			for (String s : gift) {
+				out.printf("<h3> %s </h3>" , s);
+			}
+		} else {
+			out.print("아무 것도 원하지 않습니다.");
+		}
+
 	}
 
 }

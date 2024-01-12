@@ -30,4 +30,12 @@
   	<url-pattern>/7seven</url-pattern>
   	<url-pattern>/seven7</url-pattern>
   </servlet-mapping>
+  
+  <!-- Session Time 설정  
+  	   => 분 단위, 0 또는 음수 사용시 무제한.
+  -->
+  <session-config>
+  	<session-timeout>1</session-timeout>
+  </session-config>
+  
 </web-app>
