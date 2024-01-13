@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import mvcTest.StudentDTO;
 import mvcTest.StudentService;
@@ -39,8 +40,16 @@ public class Ex04_Login extends HttpServlet {
 		try {
 			dto = ss.selectOne(Integer.parseInt(sno));
 
-			if (dto.getName().equals(name)) {
+			// 3. View ( Response ) : Forward
+			// => 성공 : 첫 화면. /index.html
+			// => 실패 : 재 로그인 유도. /servletTestForm/flow04_LoginForm.jsp
+			
+			if (dto.getSno() == Integer.parseInt(sno) && dto.getName().equals(name)) {
 				System.out.println("** 로그인 성공 **");
+				HttpSession session = request.getSession();
+				
+				session.setAttribute("dto", dto);
+				
 				request.getRequestDispatcher(uri).forward(request, response);
 			} else {
 				System.out.println("** 로그인 실패 **");
@@ -53,9 +62,6 @@ public class Ex04_Login extends HttpServlet {
 			System.out.println("** 정보가 비어있거나 Sno에 숫자가 아닌 값이 들어갔습니다 **");
 		}
 
-		// 3. View ( Response ) : Forward
-		// => 성공 : 첫 화면. /index.html
-		// => 실패 : 재 로그인 유도. /servletTestForm/flow04_LoginForm.jsp
 
 	} // doGet
 
