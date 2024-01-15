@@ -6,12 +6,7 @@
 		version="4.0">
   <display-name>web01</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>home.jsp</welcome-file>
   </welcome-file-list>
   
   <!-- ** url 매핑 
@@ -31,7 +26,7 @@
   	<url-pattern>/seven7</url-pattern>
   </servlet-mapping>
   
-  <!-- Session Time 설정  
+  <!-- Session Time 설정
   	   => 분 단위, 0 또는 음수 사용시 무제한.
   -->
   <session-config>

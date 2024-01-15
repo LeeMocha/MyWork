@@ -1,14 +1,14 @@
-<%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <!-- contentType="text/html; charset=UTF-8  : 이 페이지가 최종적으로 reponse 에 담아져서 웹브러우저에 보내지기 때문에 reponse의 설정값
+    	 pageEncoding="UTF-8 : 톰캣이 서블릿에다가 보내는 설정 값
+    -->
 <%@page import="mvcTest.StudentDTO"%>
-<%@page import = "javax.servlet.http.HttpServlet" %>
-<%@page import = "javax.servlet.http.HttpServletRequest" %>
-<%@page import = "javax.servlet.http.HttpServletResponse" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- 웹브라우저가 확인해야하는 Charset -->
 <title>Insert title here</title>
 </head>
 <body>
@@ -18,10 +18,14 @@
 
 
 <h2>** Dynamic Web Project **</h2>
-<h2> <% if(dto!=null){ %>
-	<%= dto.getName() %>
-<% }%>  안녕하세요 ~~~~ Web !!!! </h2>
-	
+<h3>
+<%
+	if(dto != null){ %>
+		<%= dto.getName() + "님" %>
+		<%
+		}
+%>
+ 안녕하세요~~~~ !!</h3>
 	
 	<form action="getpost" method="get">
 		<input type = "text" name="id" value="banana"> &nbsp;
@@ -44,7 +48,7 @@
 	&nbsp;<a href="/web01/logout">Logout</a>
 	<br>
 	<br>
-	&nbsp;<a href="/web01/hello">Hello</a>&nbsp;
+	&nbsp;<a href="/web01/hello">HelloS</a>&nbsp;
 	&nbsp;<a href="/web01/list">MVC01List</a>&nbsp;
 	&nbsp;<a href="/web01/life">LifeCycle</a><br>
 	&nbsp;<a href="/web01/servletTestForm/form01_Adder.html">Adder</a>&nbsp;
@@ -52,6 +56,9 @@
 	&nbsp;<a href="/web01/servletTestForm/form03_Check.jsp">Check</a>&nbsp;
 	&nbsp;<a href="/web01/servletTestForm/form04_Select.jsp">Select</a><br>
 	&nbsp;<a href="/web01/flow01">Flow01</a>&nbsp;
-	&nbsp;<a href="/web01/sessioni">SessionI</a>&nbsp;
+	&nbsp;<a href="/web01/sessioni">SessionI</a>&nbsp;<br>
+	&nbsp;<a href="/web01/jsp01/ex01_HelloJsp.jsp">HelloJ</a>&nbsp;
+	&nbsp;<a href="/web01/jsp01/ex02_mvc01List.jsp">M01ListJ</a>&nbsp;
+	&nbsp;<a href="/web01/list2">M02ListJ</a>&nbsp;
 </body>
 </html>

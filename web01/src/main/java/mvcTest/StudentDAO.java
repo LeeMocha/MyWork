@@ -77,7 +77,10 @@ public class StudentDAO {
 	// => 기본자료형 매개변수 (Call By value)
 	public StudentDTO selectOne(int sno) {
 		sql = "SELECT * FROM student WHERE sno = " + sno;
-
+		// => Login : ~~~~~ where sno =? and name =?
+		// 	  password 암호화 때문에 직접 비교 불가능 하기 때문에 비권장함.
+		
+		
 		try {
 			pst = cn.prepareStatement(sql);
 			rs = pst.executeQuery();

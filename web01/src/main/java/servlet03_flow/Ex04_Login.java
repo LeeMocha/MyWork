@@ -21,9 +21,17 @@ public class Ex04_Login extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+
+
+	} // doGet
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// 1. 요청 분석
 		// => 한글, request 의 parameter 처리
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		String sno = request.getParameter("sno");
 		String name = request.getParameter("name");
 		String uri = "";
@@ -45,28 +53,25 @@ public class Ex04_Login extends HttpServlet {
 			// => 실패 : 재 로그인 유도. /servletTestForm/flow04_LoginForm.jsp
 			
 			if (dto.getSno() == Integer.parseInt(sno) && dto.getName().equals(name)) {
-				System.out.println("** 로그인 성공 **");
+				uri = "home.jsp";
 				HttpSession session = request.getSession();
 				
 				session.setAttribute("dto", dto);
 				
-				request.getRequestDispatcher(uri).forward(request, response);
+				System.out.println("** 로그인 성공 **");
+				response.sendRedirect(uri);
 			} else {
-				System.out.println("** 로그인 실패 **");
 				uri = "servletTestForm/flowEx04_LoginForm.jsp";
+				System.out.println("** 로그인 실패 **");
+				request.setAttribute("message", "로그인에 실패했습니다");
 				request.getRequestDispatcher(uri).forward(request, response);
 			}
 		} catch (Exception e) {
 			uri = "servletTestForm/flowEx04_LoginForm.jsp";
-			request.getRequestDispatcher(uri).forward(request, response);
 			System.out.println("** 정보가 비어있거나 Sno에 숫자가 아닌 값이 들어갔습니다 **");
+			request.setAttribute("message", "로그인에 실패했습니다");
+			request.getRequestDispatcher(uri).forward(request, response);
 		}
-
-
-	} // doGet
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
 	} // doPost
 
 } // class
