@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,17 +25,20 @@
 </table>
 </form>
 <hr>
-<%-- <%	if ( request.getAttribute("message") !=null ) {
+<%-- 
+<%	if ( request.getAttribute("message") !=null ) {
 	// message 출력 %>
 	 <%=request.getAttribute("message")%>
-<%	} %>  --%>
+<%	} %> 
+--%>
 
 <c:if test="${not empty requestScope.message}">
 => ${requestScope.message}<br>
 </c:if>
-	<%-- ${} : EL 표현식 언어 (Expression Language)
-	JSTL : 커스텀 라이브러리 Ex) </c:if></c:if> 
-	--%> 
+
+<%-- ${} : EL 표현식 언어 (Expression Language)
+JSTL : 커스텀 라이브러리 Ex) </c:if></c:if> 
+--%> 
 	
 </body>
 </html>
