@@ -20,7 +20,7 @@ public class Ex02_MVC02Detail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		StudentService ss = new StudentService();
 		
-		int sno = (Integer)request.getSession().getAttribute("loginID");
+		int sno = (int)(request.getSession().getAttribute("loginID"));
 		
 		request.setAttribute("apple",ss.selectOne(sno));
 		request.getRequestDispatcher("mvcTestJsp/ex3_MVC02Detail.jsp").forward(request, response);
