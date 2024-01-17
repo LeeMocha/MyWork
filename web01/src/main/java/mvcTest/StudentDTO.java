@@ -73,8 +73,11 @@ public class StudentDTO extends JoDTO {
 	private int jno;
 	private String info;
 	private double point;
-	private String cName;
+	private String cname;
 	// private 필드 이기 때문에 getter/setter로 접근해야함
+	// => cName : setCName() ... 맴버변수명의 2번째 알파벳도 대문자 사용금지
+	// 나중에 스프링이나 이런거에선 자동으로 getter / setter 를 만들어주는 과정이 있는데
+	// 그 때 카멜표기법은 혼돈이 올 수 있음 ex) setCName()
 	
 	// 1-2) 생성자
 	// => default 생성자, 모든값을 초기화 하는 생성자
@@ -99,7 +102,7 @@ public class StudentDTO extends JoDTO {
 	    this.jno=jno;
 	    this.info=info;
 	    this.point=point;
-	    this.cName=cname;
+	    this.cname=cname;
 	 }
 	
 	// 2) getter/setter
@@ -152,10 +155,10 @@ public class StudentDTO extends JoDTO {
 	}
 	
 	public String getcName() {
-		return cName;
+		return cname;
 	}
 	public void setcName(String cName) {
-		this.cName = cName;
+		this.cname = cName;
 	}
 	// 3) toString 메서드 : DTO 클래스 객체의 정보를 알려주기 위한 메서드
 	//    기본 최상위 Object 클래스에 상속되어있고 거기에 정의되어있는 toString() 메서드

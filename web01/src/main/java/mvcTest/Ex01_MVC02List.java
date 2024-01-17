@@ -37,7 +37,10 @@ public class Ex01_MVC02List extends HttpServlet {
 		request.setAttribute("myList" , list);
 		// => 요청을 다시 Jsp 쪽으로 보내야함
 		// => requset의 Attribute에 담았기 때문에 포워드를 써야함
-		request.getRequestDispatcher("mvcTestJsp/ex01_MVC02List.jsp").forward(request,response);
+		
+		String uri = "mvcTestJsp/ex01_MVC02List.jsp"; // ver01_Java_Scriptlet
+		uri = "mvcTestJsp/ex02_MVC02List.jsp";	// ver02_JSTL
+		request.getRequestDispatcher(uri).forward(request,response);
 		
 	} // doGet
 

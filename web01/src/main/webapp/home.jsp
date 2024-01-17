@@ -31,8 +31,8 @@
 	<c:set value="${ sessionScope.name }" var="name"></c:set> --%>
 
 	<h3>
-		<c:if test="${ !empty name}">
-		${ sessionScope.name }님 
+		<c:if test="${ !empty sessionScope.loginName}">
+		${ sessionScope.loginName }님 
 	</c:if>
 		안녕하세요
 	</h3>
@@ -55,13 +55,13 @@
 	<img alt="" src="/web01/images/letsgo.png" width="300" height="200">
 	<hr>
 	&nbsp;
-	<c:if test="${ empty name}">
+	<c:if test="${ empty sessionScope.loginName}">
 		<a href="/web01/servletTestForm/flowEx04_LoginForm.jsp">LogIn</a>&nbsp;
 		<a href="#">Join</a>
 	</c:if>
-	<c:if test="${ not empty name }">
+	<c:if test="${ not empty sessionScope.loginName }">
 		<a href="/web01/logout">Logout</a>&nbsp;
-		<a href="#">MyInfo</a>
+		<a href="/web01/detail">MyInfo</a>
 	</c:if>
 	<br>
 	<br> &nbsp;
