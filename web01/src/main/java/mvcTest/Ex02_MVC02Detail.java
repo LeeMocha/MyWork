@@ -20,6 +20,11 @@ public class Ex02_MVC02Detail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		StudentService ss = new StudentService();
 		
+		
+//		System.out.println((request.getSession().getAttribute("loginID")).getClass().getTypeName());
+		
+		
+//		int sno = Integer.parseInt(String.valueOf(request.getSession().getAttribute("loginID")));
 		int sno = (int)(request.getSession().getAttribute("loginID"));
 		
 		request.setAttribute("apple",ss.selectOne(sno));
