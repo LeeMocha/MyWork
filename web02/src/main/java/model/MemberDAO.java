@@ -51,7 +51,6 @@ public class MemberDAO {
 
 			if (rs.next()) {
 				do {
-					System.out.println("1");
 					MemberDTO dto = new MemberDTO();
 					dto.setId(rs.getString(1));
 					dto.setPassword(rs.getString(2));
