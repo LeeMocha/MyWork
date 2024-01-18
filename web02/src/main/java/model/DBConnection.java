@@ -56,7 +56,7 @@ public class DBConnection {
 			// characterEncoding=UTF-8 , serverTimezone=UTC , useSSL=false , allowPublicKeyRetrieval=true
 			// allowPublicKeyRetrieval=true 이걸 안주게 되면 mysql 을 열어놔 줘야함, true는 로컬 DB 를 열지 않아도 연결하게 하는 값
 			
-			Connection cn = DriverManager.getConnection(url, "root", "mysql");
+			Connection cn = DriverManager.getConnection(url, "root", "mysqlmysql");
 			// 원래라면 new Connection()해서 컨넥션 객체를 전달해주지만 DriverManager가 그걸 대신해줌
 			
 			System.out.println("** Connection 성공 **");
