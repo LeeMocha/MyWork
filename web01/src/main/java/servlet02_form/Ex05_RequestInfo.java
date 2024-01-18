@@ -61,7 +61,5 @@ public class Ex05_RequestInfo extends HttpServlet {
 		System.out.println("=> ServerName: " + request.getServerName());
 		System.out.println("=> ServerPort: " + request.getServerPort());
 		System.out.println("=> ServletPath: " + request.getServletPath());
-
 	}
-
 }
