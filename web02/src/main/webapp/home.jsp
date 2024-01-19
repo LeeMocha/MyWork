@@ -32,12 +32,13 @@
 
 	<h3>
 		<c:if test="${ !empty sessionScope.loginName}">
-		${ sessionScope.loginName }님 
+		${sessionScope.loginId}(${sessionScope.loginName})님 
 	</c:if>
 		안녕하세요
 	</h3>
 	<img alt="" src="/web02/images/letsgo.png" width="300" height="200">
 	<hr>
+	<br>
 	&nbsp;
 	<c:if test="${ empty sessionScope.loginName}">
 		<a href="/web02/member/loginForm.jsp">LogIn</a>&nbsp;
@@ -45,10 +46,18 @@
 	</c:if>
 	<c:if test="${ not empty sessionScope.loginName }">
 		<a href="/web02/logout">Logout</a>&nbsp;
-		<a href="/web02/Mdetail">MyInfo</a>
+		<a href="/web02/mdetail">MyInfo</a>&nbsp;
+		<a href="/web02/mdetail?jCode=U">내정보수정</a>&nbsp;
+		<a href="/web02/mdelete" onclick= "return delchk();">회원탈퇴</a>&nbsp;
 	</c:if>
 	<br>
-
+	<br>
 	&nbsp;<a href="/web02/mlist">MList</a>&nbsp;
 </body>
+
+<script type="text/javascript">
+function delchk(){
+       return confirm("정말로 탈퇴 하시겠습니까?");
+}
+</script>
 </html>

@@ -135,7 +135,7 @@ public class MemberDAO {
 	// ** update
 	// => id(P.key)를 제외한 모든 컬럼 수정
 	public int update(MemberDTO dto) {
-		sql = "UPDATE membet SET password=?"
+		sql = "UPDATE member SET password=?"
 				+ ", name=?, age=?, jno=?, info=?"
 				+ ", point=?, birthday=?, rid=? WHERE id= ?";
 		try {
