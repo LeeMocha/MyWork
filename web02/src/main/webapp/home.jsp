@@ -21,21 +21,21 @@
 	<%}%> --%>
 	<!-- => 아래 JSTL 과 비교 -->
 
-	<%--	<c:set value="${ sessionScope.name }" var="name"></c:set>
- 	<c:if test="${ !empty name}">
-		<h3>${ sessionScope.name }님 안녕하세요</h3>
+ 	<c:if test="${ !empty sessionScope.loginName}">
+		<h3>${ sessionScope.loginName }님 안녕하세요</h3>
 	</c:if>
-	<c:if test="${ empty name }">
+	<c:if test="${ empty sessionScope.loginName }">
 		<h3>로그인 후 이용하세요~~~</h3>
 	</c:if>
-	<c:set value="${ sessionScope.name }" var="name"></c:set> --%>
+
+<%-- 	<c:set value="${ sessionScope.loginName }" var="name"></c:set>
 
 	<h3>
 		<c:if test="${ !empty sessionScope.loginName}">
 		${sessionScope.loginId}(${sessionScope.loginName})님 
 	</c:if>
 		안녕하세요
-	</h3>
+	</h3> --%>
 	<img alt="" src="/web02/images/letsgo.png" width="300" height="200">
 	<hr>
 	<br>
