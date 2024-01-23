@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
-
+		<!-- ** Maven Repository : https://mvnrepository.com/ -->
 		<!-- 1. Spring , Java Version 수정 -->
 		<java-version>1.8</java-version>
 		<org.springframework-version>5.2.4.RELEASE</org.springframework-version>
@@ -126,7 +126,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- ** Maven Repository : https://mvnrepository.com/ -->
 		<!-- MySql -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -156,8 +155,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>

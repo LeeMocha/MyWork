@@ -14,7 +14,12 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<!-- Processes application requests-->
+	<!-- Processes application requests
+		** DispatcherServlet : Spring 이 재공하는 프론트컨트롤러
+		=> Object -> GenericServlet -> 
+			HttpServlet -> HttpServletBean -> FrameworkServlet -> DispatcherServlet 로 계보가 이어짐.
+		=> DispatcherServlet이 어떤 기능들을 쓸것인지 parameter 값을 줘서 servlet-context.xml을 써서 알려줌 
+	-->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
