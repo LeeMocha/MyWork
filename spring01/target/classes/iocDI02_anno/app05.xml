@@ -6,8 +6,17 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	<!-- 밑에 Namespaces 탭 에서 context 추가하면 위에 코드처럼 추가됨 -->
 	
+	<!-- 애너테이션 (Annotation, @) Component 를 Scan 할 패키지 정의  
+	=> <context:component-scan : @Component 가 붙은 모든 클래스를 스프링빈으로 등록 
+	=> <context:~~~ 는 Namespaces 에서 선택한후 사용 가능함.
+-->
 	<context:component-scan base-package="iocDI02_anno" />
 	<!-- Bean 을 만들 클래스를 찾을 건데 베이스가 되는 패키지 위치를 지정해줘야 찾을 수 있음 -->
+	
+	<!-- xml 과 @ 병행 Test -->
+	<bean class="iocDI02_anno.Speaker" lazy-init="true"/>
+	<!-- 해당하는 파일에 Speaker class는 하나이기 때문에 id값 입력 생략 가능 -->
+	<bean id="spa" class="iocDI02_anno.SpeakerA" lazy-init="default"/>
 	
 	
 </beans>

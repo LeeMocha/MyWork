@@ -21,7 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.ncs.spring01" />
+	<context:component-scan base-package="com.ncs.spring01, model, service" />
 	
 	<!-- * spring DispatcherServlet Test 1단계 **
 		=> xml 적용 ( 2단계 : @ 적용 )
@@ -35,8 +35,10 @@
 		-->		
    <beans:bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
       <beans:property name="mappings">
+      <!-- 전역변수인 mappings 를 setter로 초기화 한다는 것을 beans:property 로 알 수 있음 -->
       <!-- properties 컬렉션 : key = String 타입 , Value = String 타입 -->
          <beans:props>
+         <!-- properties 컬렉션의  setMappings() 메서드를 호출 하기 위해서는 .xml 에서 사용하는 문법이 따로 있음 -->
             <beans:prop key="/mlistsp">ml</beans:prop>
             <beans:prop key="/mdetailsp">md</beans:prop>
          </beans:props>

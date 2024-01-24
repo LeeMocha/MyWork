@@ -48,7 +48,7 @@
 
 <hr>
 <br>
-&nbsp;<a href="/web02/home.jsp">Home</a>&nbsp;
+&nbsp;<a href="">Home</a>&nbsp;
 &nbsp;<a href="javascript:history.go(-1)">이전으로</a>&nbsp;
 
 </body>

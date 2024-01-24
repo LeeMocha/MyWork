@@ -20,7 +20,7 @@
 			<!-- <constructor-arg name="speaker" ref="sp" /> -->
 		</bean>
 		
-		<!-- 생성자 메서드, setter 쓸 경우 필드에 speaker 값을 초기화 하기위해서 ref 의 값이 필요
+		<!-- 생성자 메서드, setter 쓸 경우 필드에 참조형 변수인 speaker의 값을 초기화 하기위해서 ref에 참조값이 필요
 		ref 는 마찬가지로 Bean을 생성해서 그 id 값을 ref로 전달하면 됨  -->
 		<bean id="spa" class="iocDI01_xml.SpeakerA" lazy-init="true"></bean>
 		<bean id="spb" class="iocDI01_xml.SpeakerB" lazy-init="true"></bean>

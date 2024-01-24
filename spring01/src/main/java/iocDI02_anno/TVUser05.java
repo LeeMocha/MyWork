@@ -38,7 +38,7 @@ interface TV {
 }
 
 // @Component : app05.xml에서 에노테이션을 검색. ()안에는 id가 들어감
-@Component("tv")
+//@Component("tv")
 class SsTVi implements TV {
 	public SsTVi() {System.out.println("~~ SsTVi 기본생성자 ~~");}
 	public void powerOn () {System.out.println("~~ SsTVi powerOn ~~");};
@@ -47,7 +47,7 @@ class SsTVi implements TV {
 	public void volumeDown () {System.out.println("~~ SsTVi volumeDown ~~");};
 }
 
-@Component("ltv")
+//@Component("ltv")
 class LgTVi implements TV {
 	public LgTVi() {System.out.println("~~ LgTVi 기본생성자 ~~");}
 	public void powerOn () {System.out.println("~~ LgTVi powerOn ~~");};

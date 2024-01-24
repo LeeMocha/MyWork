@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>** Web02_MVC02 MemberList **</title>
+<title>** Spring01 MemberList **</title>
 </head>
 <body>
-<h2>** Web02_MVC02 MemberList **</h2>
+<h2>** Spring01 MemberList **</h2>
 <hr>
 <c:if test="${ !empty request.message }">
 => ${ request.message }<br><hr>
@@ -46,7 +46,7 @@
 
 </table>
 <hr>
-&nbsp;<a href="/web02/home.jsp"> home </a> &nbsp;
+&nbsp;<a href=""> home </a> &nbsp;
 &nbsp;<a href="javascript:history.go(-1)"> 이전으로 </a> &nbsp;
 
 </body>

@@ -19,9 +19,8 @@
 		<hr> ${ requestScope.message } <hr>
 	</c:if>
 	<br>
-	<img alt="" src="resources/images/white01.gif" width="300" height="200">
-	<img alt="" src="resources/images/apple.png" width="300" height="200">
-	<img alt="" src="resources/images/pink01.png" width="300" height="200">
+	<img alt="" src="resources/images/karina1.gif" width="300" height="400" >
+	<img alt="" src="resources/images/karina2.gif" width="300" height="400" >
 	<br> &nbsp;
 	<c:if test="${ empty sessionScope.loginName}">
 		<a href="/web02/member/loginForm.jsp">LogIn</a>&nbsp;
