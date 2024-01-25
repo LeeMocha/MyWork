@@ -33,21 +33,21 @@
 			- 콜렉션의 Properties는 
 			  (String, String) 형태로 저장하는 Map보다 단순화된 컬렉션
 		-->		
-   <beans:bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+<!--    <beans:bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
       <beans:property name="mappings">
-      <!-- 전역변수인 mappings 를 setter로 초기화 한다는 것을 beans:property 로 알 수 있음 -->
-      <!-- properties 컬렉션 : key = String 타입 , Value = String 타입 -->
+      전역변수인 mappings 를 setter로 초기화 한다는 것을 beans:property 로 알 수 있음
+      properties 컬렉션 : key = String 타입 , Value = String 타입
          <beans:props>
-         <!-- properties 컬렉션의  setMappings() 메서드를 호출 하기 위해서는 .xml 에서 사용하는 문법이 따로 있음 -->
+         properties 컬렉션의  setMappings() 메서드를 호출 하기 위해서는 .xml 에서 사용하는 문법이 따로 있음
             <beans:prop key="/mlistsp">ml</beans:prop>
             <beans:prop key="/mdetailsp">md</beans:prop>
          </beans:props>
       </beans:property>
    </beans:bean>
    
-   <!-- 2. Controller Bean 등록  -->
+   2. Controller Bean 등록 
    <beans:bean class="spDispatcher.C01_mList" id="ml" lazy-init="true" />
-   <beans:bean class="spDispatcher.C02_mDetail" id="md" lazy-init="true" />
+   <beans:bean class="spDispatcher.C02_mDetail" id="md" lazy-init="true" /> -->
    
    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	

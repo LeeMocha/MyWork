@@ -46,7 +46,7 @@
 
 </table>
 <hr>
-&nbsp;<a href=""> home </a> &nbsp;
+&nbsp;<a href="home"> home </a> &nbsp;
 &nbsp;<a href="javascript:history.go(-1)"> 이전으로 </a> &nbsp;
 
 </body>

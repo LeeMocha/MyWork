@@ -22,7 +22,7 @@
 	<img alt="" src="resources/images/karina1.gif" width="300" height="400" >
 	<img alt="" src="resources/images/karina2.gif" width="300" height="400" >
 	<br> &nbsp;
-	<c:if test="${ empty sessionScope.loginName}">
+<%-- 	<c:if test="${ empty sessionScope.loginName}">
 		<a href="/web02/member/loginForm.jsp">LogIn</a>&nbsp;
 		<a href="/web02/member/joinForm.jsp">Join</a>
 	</c:if>
@@ -30,7 +30,7 @@
 		<a href="/web02/logout">Logout</a>&nbsp;
 		<a href="/web02/mdetail?jCode=U">내정보수정</a>&nbsp;
 		<a href="/web02/mdelete" onclick="return delchk();">회원탈퇴</a>&nbsp;
-	</c:if>
+	</c:if> --%>
 	<br>
 	<br> &nbsp;
 	<a href="mlist">MList</a>&nbsp;
