@@ -1,0 +1,6 @@
+** Jo 관리 시스템 **
+-> CRUD 구현
+=> Java : JoDTO, JoDAO, JoService, JoController
+=> Jsp : joList.jsp , joDetail.jsp , joInsert.jsp , joUpdate.jsp
+=> home : Jo 메뉴
+=> joList 에서 jno 를 클릭하면 joDetail로 출력되도록 표시
