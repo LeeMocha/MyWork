@@ -21,8 +21,9 @@ public class JoDAO {
 	
 	// ** selectList
 	public List<JoDTO> selectList (){
-		sql = "SELECT j.jno, j.jname, j.captain, m.name, j.project, j.slogan FROM jo j, member m"
-				+ " WHERE j.captain = m.id";
+		sql = "SELECT j.jno, j.jname, j.captain, m.name, j.project, j.slogan "
+				+ "FROM jo j LEFT OUTER JOIN member m"
+				+ " ON j.captain = m.id";
 		List<JoDTO> list = new ArrayList<JoDTO>();
 		try {
 

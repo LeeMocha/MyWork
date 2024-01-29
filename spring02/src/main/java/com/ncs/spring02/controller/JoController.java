@@ -1,34 +1,38 @@
 package com.ncs.spring02.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ncs.spring02.domain.JoDTO;
 import com.ncs.spring02.service.JoService;
+import com.ncs.spring02.service.MemberService;
+
+import lombok.AllArgsConstructor;
 
 @Controller
 @RequestMapping(value = "/jo")
+@AllArgsConstructor // => 모든 필드값을 초기화 하겠다는 의미, 고로 필드들에 @Autowired 가 필요 없어짐
 public class JoController {
 	
-	@Autowired(required = false)
+	// @Autowired(required = false)
 	JoService service;
+	// @Autowired(required = false)
+	MemberService mService;
 	
-	@RequestMapping(value = "/joList" , method = RequestMethod.GET)
+	
+	@GetMapping("/joList")
 	public void joList (Model model) {
 		model.addAttribute("banana", service.selectList());
-	}
+	} // joList
 	
-	@RequestMapping(value ="/detail" , method=RequestMethod.GET)
+	@GetMapping("/detail")
 	public String joDetail (@RequestParam("jCode")int jCode, Model model ) {
-		
 		String uri = "jo/joDetail";
-		
-		model.addAttribute("apple", service.selectOne(jCode));
 		
 		if(jCode < 0) {
 			uri = "jo/updateForm";
@@ -36,14 +40,18 @@ public class JoController {
 		}
 		
 		model.addAttribute("apple", service.selectOne(jCode));
+//		MemberService mService = new MemberService();
+		// 이 경우 NullPointException 뜸. 이유는 모든 인스턴스를 Spring(lombok) 이 관리하기 때문
+		model.addAttribute("members", mService.selectJoList(jCode));
+		
 		return uri;
-	}
+	} // detail
 	
-	@RequestMapping(value = "/insertForm", method = RequestMethod.GET)
+	@GetMapping("/insertForm")
 	public void joInsertFrom() {
-	}
+	}  // insertForm
 	
-	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	@PostMapping("/insert")
 	public String joInsert(Model model, JoDTO dto) {
 		String uri = "jo/joDetail";
 		
@@ -59,9 +67,9 @@ public class JoController {
 		}
 		
 		return uri;
-	}
+	} // insert
 	
-	@RequestMapping(value = "/update" , method = RequestMethod.POST)
+	@PostMapping("/update")
 	public String joUpdate(Model model, JoDTO dto) {
 		String uri = "jo/joDetail";
 		
@@ -77,9 +85,9 @@ public class JoController {
 		}
 		
 		return uri;
-	}
+	} // update
 	
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@PostMapping("/delete")
 	public String joDelete(Model model, @RequestParam("jCode")int jCode, RedirectAttributes rttr) {
 		String uri = "redirect:/jo/joList";
 		
@@ -90,8 +98,6 @@ public class JoController {
 		}
 
 		return uri;
-	}
+	} // delete
 	
-	
-	
-}
+} // class
