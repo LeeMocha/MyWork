@@ -17,7 +17,7 @@
 		<div class="content">
 			<!-- 컨텐츠 wrap -->
 			<!-- <form action=".https://lastteamproject.web.app/news_n_event/"></form> -->
-			<h2 style="font-size: 400%;">** Spring_MVC02 Board Insert **</h2>
+			<h2 style="font-size: 400%;">** 게시글 작성 페이지 **</h2>
 			<br>
 			<div class="boardWriteForm">
 				<form action="insert" method="post">
@@ -29,7 +29,7 @@
 							</div>
 							<div class="board_category">
 								<div class="title_input_box">
-									<input type="text" name="title">
+									<input type="text" name="title" placeholder="글 제목 입력 필수!!">
 								</div>
 							</div>
 						</div>
@@ -38,20 +38,6 @@
 							<div class="tool_bar_top">
 								<div class="list_n_aline_tool_wrap">
 									<div class="list_tool_wrap"></div>
-								</div>
-								<div class="etc_tool_wrap">
-									<div class="more_insert_tool_button"></div>
-									<div class="functional_tool_button">
-										<button class="revert_button">
-											<i class="fa-solid fa-reply"></i>
-										</button>
-										<button class="forward_button">
-											<i class="fa-solid fa-share"></i>
-										</button>
-										<button class="etc_button">
-											<i class="fa-solid fa-ellipsis-vertical"></i>
-										</button>
-									</div>
 								</div>
 							</div>
 							<div class="main_text_line"></div>
@@ -80,7 +66,7 @@
 				</form>
 				<br>
 				<div class="push_cancel_wrap">
-					<a href="boardList" id="push_button">글목록</a>
+					<a href="boardList" id="list_button">글목록</a>
 				</div>
 			</div>
 		</div>

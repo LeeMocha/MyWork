@@ -16,10 +16,10 @@
       <div class="content">
          <!-- 컨텐츠 wrap -->
          <!-- <form action=".https://lastteamproject.web.app/news_n_event/"></form> -->
-		<h2 style="font-size:400%;">** Spring_MVC02 Board Detail **</h2>
+		<h2 style="font-size:400%;">** 글 수정 페이지 **</h2>
 		<br>
          <div class="boardWriteForm">
-         <form action="insert" method="post">
+         <form action="update" method="post">
             <div class="board_wrap">
                <!-- 제목영역 -->
                <div class="title_wrap">
@@ -39,15 +39,6 @@
                         <div class="list_tool_wrap">
                         </div>
                      </div>
-                     <div class="etc_tool_wrap">
-                        <div class="more_insert_tool_button">
-                        </div>
-                        <div class="functional_tool_button">
-                           <button class="revert_button"><i class="fa-solid fa-reply"></i></button>
-                           <button class="forward_button"><i class="fa-solid fa-share"></i></button>
-                           <button class="etc_button"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                        </div>
-                     </div>
                   </div>
                   <div class="main_text_line"></div>
                   <div class="main_text">
@@ -56,6 +47,7 @@
                      </div>
                   </div>
                   <div class="tool_bar_bottom">
+                     <span class="letter_num">조회수 : <input type="text" name="cnt" value="${ b.cnt }" readonly style="display:none;"></span> &nbsp;&nbsp;&nbsp;
                      <span class="letter_num">글번호 : <input type="text" name="seq" value="${ b.seq }" readonly></span> &nbsp;&nbsp;&nbsp;
                      <span class="letter_num">작성자 : <input type="text" name="id" value="${ b.id }" readonly></span> &nbsp;&nbsp;&nbsp;
                      <span class="letter_num">작성 시간 : <input type="text" name="regdate" value="${ b.regdate }" readonly></span>
@@ -65,14 +57,14 @@
             </div>
             <c:if test="${sessionScope.loginID eq b.id}">
                <div class="push_cancel_wrap">
-                  <a href="update" id="push_button"><span>적용</span></a>
-                  <input type="reset" id="cancel_button">
+                  <input type="submit" id="push_button" value="적용">
+                  <input type="reset" id="cancel_button" style="color:black;">
                </div>
             </c:if>
             </form>
             <br>
                <div class="push_cancel_wrap">
-                  <a href="boardList" id="push_button">글목록</a>
+                  <a href="boardList" id="list_button">글목록</a>
                </div>
             </div>
          </div>

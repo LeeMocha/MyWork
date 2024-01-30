@@ -240,9 +240,27 @@ textarea{
    color: cadetblue; 
 }
 
+#list_button{
+	border: 1px solid #d6d6d6;
+	height: 30px;
+	width: 100px;
+	margin-top : 50px;
+	position: absolute;
+	right: 170px;
+}
+
 body a{
    display: flex;
    text-decoration: none;
    align-items: center;
    justify-content: center;
+}
+
+#write_botton{
+	position: absolute;
+	right: 110px;
+    border: 1px solid #d6d6d6;
+    height: 30px;
+    width: 70px;
+    text-align: center;
 }

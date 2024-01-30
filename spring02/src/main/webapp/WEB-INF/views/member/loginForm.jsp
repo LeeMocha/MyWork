@@ -35,7 +35,6 @@
 </c:if>
 
 &nbsp;<a href="/spring02/home">Home</a>&nbsp;
-&nbsp;<a href="javascript:history.go(-1)">이전으로</a>&nbsp;
 
 </body>
 </html>

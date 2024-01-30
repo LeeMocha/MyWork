@@ -14,8 +14,8 @@
 <c:if test="${ !empty request.message }">
 => ${ request.message }<br><hr>
 </c:if>
-<div style="width:100%; text-align:center; display:flex; justify-content:center; ">
-<table border="1" style="width:85%;">
+<div style="width:100%; display:flex; justify-content:center; ">
+<table style="width:85%;">
 	<tr bgcolor="Orange">
 		<th>글번호</th>
 		<th>제 목</th>
@@ -28,6 +28,13 @@
 			<tr>
 				<td>${ b.seq }</td>
 				<td>
+				<!-- 답글 등록 되면 Title 출력전에 들여쓰기 추가 -->
+				<c:if test="${ b.indent > 0}">
+					<c:forEach begin="1" end="${ b.indent }">
+						<span>&nbsp;&nbsp;</span>
+					</c:forEach>
+					<span style="color:Blue;">re...</span>
+				</c:if>
 				<c:if test="${!empty sessionScope.loginID}">
 				<a href="detail?jCode=D&seq=${ b.seq }">${ b.title }</a>
 				</c:if>
@@ -51,16 +58,14 @@
 		<hr> ${ requestScope.message }<br><hr>
 </c:if>
 <c:if test="${ !empty sessionScope.loginID }">
-<hr><br>
-&nbsp;<a href="boardInsert"> 글쓰기 </a> &nbsp;
+<hr>
+<div>
+&nbsp;<a href="boardInsert" id="write_botton"> 글쓰기 </a> &nbsp;
+</div>
 <br>
 </c:if>
-<br><hr>
+<hr>
 &nbsp;<a href="/spring02/home"> home </a> &nbsp;
 &nbsp;<a href="javascript:history.go(-1)"> 이전으로 </a> &nbsp;
-
-</body>
-
-
 </body>
 </html>

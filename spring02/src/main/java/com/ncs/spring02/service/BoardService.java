@@ -25,5 +25,5 @@ public interface BoardService {
 	// ** delete()
 	public int delete(int seq);
 	
-
+	public int rinsert(BoardDTO dto);
 }

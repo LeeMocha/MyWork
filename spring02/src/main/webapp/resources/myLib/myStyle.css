@@ -49,4 +49,12 @@ a:active { color:Blue; }
 	float: left;
 }
 
+#write_botton{
+	position: absolute;
+	right: 110px;
+    border: 1px solid #d6d6d6;
+    height: 30px;
+    width: 70px;
+    text-align: center;
+}
 

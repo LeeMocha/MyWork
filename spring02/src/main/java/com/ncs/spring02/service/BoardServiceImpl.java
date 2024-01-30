@@ -38,5 +38,12 @@ public class BoardServiceImpl implements BoardService {
 	public int delete(int seq) {
 		return dao.delete(seq);
 	}
+
+	@Override
+	public int rinsert(BoardDTO dto) {
+		return dao.rinsert(dto);
+	}
+	
+	
 	
 }
