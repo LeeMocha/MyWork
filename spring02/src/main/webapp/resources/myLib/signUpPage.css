@@ -1,0 +1,249 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+	text-align: center;
+}
+
+ul, li {
+	list-style: none;
+	font-size: 12px;
+	color: #656565;
+}
+
+input:focus {
+	outline: none;
+}
+
+select:focus {
+	outline: none;
+}
+
+input, select {
+	border-color: #000;
+	border-width: 0 0 1px;
+	vertical-align: middle;
+	max-width: 100%;
+	font-size: 12px;
+}
+
+.container {
+	width: 100%;
+	padding: 180px 20px 50px 20px;
+}
+
+.signUp_wrap {
+	padding-top: 30px;
+	padding-bottom: 100px;
+	margin: 0 auto;
+	width: 600px;
+}
+
+.signUp_second_wrap {
+	max-width: 410px;
+	margin: 0 auto;
+	;
+}
+
+.switch_button_wrap {
+	padding-bottom: 40px;
+	margin: 0 0 20px;
+	border-bottom: 1px solid #d6d6d6;
+}
+
+.switch_button {
+	display: inline-block;
+	font-size: 14px;
+	margin: 0 8px;
+}
+
+.switch_button.login>a {
+	color: #959595;
+}
+
+.client_type_radio_wrap {
+	font-size: 120%;
+	color: #656565;
+}
+
+.client_type_radio_wrap label {
+	padding-right: 10px;
+}
+
+.category {
+	margin-top: 2px;
+	padding: 10px 0;
+}
+
+.ct1>input {
+	width: 100%;
+	padding-top: 15px;
+}
+
+.ct1_wrap {
+	margin-top: 20px;
+}
+
+#address-1, #address-2 {
+	width: 100%;
+	padding-top: 15px;
+}
+
+.client_type_select_box {
+	margin-bottom: 30px;
+}
+
+.info_logo {
+	display: inline-block;
+	color: #757575;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.right_info {
+	margin: 0;
+	float: right;
+	font-size: 12px;
+}
+
+.right_info2 {
+	display: inline-block;
+	font-size: 10px;
+	color: #c5c5c5;
+}
+
+.xi-star {
+	color: deepskyblue;
+	padding: 0 2px;
+	font-size: 6px;
+	vertical-align: top;
+}
+
+#address_search_box {
+	border: 1px solid #6d6d6d;
+	background-color: #fff;
+	padding: 8px;
+	margin-left: 4px;
+}
+
+#sample6_postcode {
+	width: 50px;
+	margin-top: 12px;
+}
+
+input::placeholder {
+	padding-left: 1px;
+	color: #c5c5c5;
+}
+
+#sample6_address, #sample6_detailAddress {
+	margin-top: 16px;
+}
+
+.phone, .cell_phone {
+	vertical-align: bottom;
+	width: 180px;
+}
+
+.add_info_border {
+	display: flex;
+	justify-content: space-between;
+	border: 1px solid #d6d6d6;
+	padding: 10px;
+}
+
+.add_info_container {
+	font-size: 12px;
+	color: #757575;
+}
+
+.add_info_wrap1, .add_info_wrap2 {
+	font-size: 12px;
+	color: #757575;
+	padding: 10px;
+}
+
+.birth.year {
+	width: 150px;
+}
+
+.birth {
+	width: 30px;
+}
+
+.all_agree_checkBox {
+	margin: 25px 0 5px;
+}
+
+.info_logo2 {
+	display: inline-block;
+	padding: 0 0 3px 10px;
+}
+
+.agree_wrap {
+	border: 1px solid #000;
+	padding: 10px;
+}
+
+.info_logo3 {
+	font-size: 11px;
+	color: #959595;
+	padding: 10px 20px 15px;
+}
+
+.agree_content {
+	white-space: pre-wrap;
+	color: #a5a5a5;
+	font-size: 11px;
+	margin: 10px 20px;
+	display: inline-block;
+	max-height: 160px;
+	width: 90%;
+	overflow-y: scroll;
+}
+
+.agree_checkBox {
+	margin-left: 20px;
+	display: inline-block;
+}
+
+span {
+	display: inline-block;
+	padding: 10px;
+	font-size: 12px;
+	color: #000;
+}
+
+.submit_box_wrap {
+	background-color: #000;
+	color: #fff;
+	margin-top: 20px;
+	width: 100%;
+	text-align: center;
+	height: 40px;
+	cursor: pointer;
+}
+
+.reset_button {
+	background-color: #fff; border : 1px solid black;
+	color: #000;
+	margin-top: 20px;
+	width: 100%;
+	text-align: center;
+	height: 40px;
+	cursor: pointer;
+	border: 1px solid black;
+}
+
+form.was-validated input:invalid {
+	border-color: red;
+}
+
+.eMessage{
+	color : red;
+}

@@ -33,7 +33,7 @@
 					<c:forEach begin="1" end="${ b.indent }">
 						<span>&nbsp;&nbsp;</span>
 					</c:forEach>
-					<span style="color:Blue;">re...</span>
+					<span style="color:Red;">re...</span>
 				</c:if>
 				<c:if test="${!empty sessionScope.loginID}">
 				<a href="detail?jCode=D&seq=${ b.seq }">${ b.title }</a>
@@ -55,7 +55,7 @@
 </table>
 </div>
 <c:if test="${!empty requestScope.message}">
-		<hr> ${ requestScope.message }<br><hr>
+		<hr> ${ requestScope.message }<br>
 </c:if>
 <c:if test="${ !empty sessionScope.loginID }">
 <hr>

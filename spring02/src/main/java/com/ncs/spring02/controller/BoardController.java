@@ -91,7 +91,7 @@ public class BoardController {
 	public String delete(Model model, BoardDTO dto, RedirectAttributes rttr) {
 		String uri = "redirect:boardList";
 		
-		if(service.delete(dto.getSeq())>0){
+		if(service.delete(dto)>0){
 			rttr.addFlashAttribute("message", "** 게시글이 성공적으로 삭제됐습니다. **");
 		} else {
 			rttr.addFlashAttribute("message", "~~ 게시글 삭제 오류!! 관리자와 연락하세요 ~~");
