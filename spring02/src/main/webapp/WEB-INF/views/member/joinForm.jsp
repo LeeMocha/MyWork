@@ -9,12 +9,6 @@
 <link rel="stylesheet" type="text/css"
 	href="/spring02/resources/myLib/signUpPage.css">
 <!-- font-family: 'Noto Sans KR', sans-serif; -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet"
 	href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <script src="/spring02/resources/myLib/inCheck.js"></script>
@@ -39,6 +33,28 @@
 //----------------------------------------------------
 
 "use strict"
+
+// ** ID 중복확인
+// => UI 개선사항
+// => 중복확인 버튼 추가
+//    처음 : 중복확인버튼_enable / submit_disable
+// => 중복확인 완료후 submit 이 가능하도록
+//    중복확인버튼_disable / submit_enable
+// => 중복확인 기능 : function idDupCheck()
+//    id입력값의 무결성점검 -> id 확인요청 -> 서버로 전송 -> id , selectOne 결과 -> response: 사용가능/불가능 
+// => 서버측 : 컨트롤러에 idDupCheck 요청을 처리하는 매핑메서드, view_Page(팝업창) 작성 
+function idDupCheck(){
+	console.log('11');
+	// 1) id 입력값의 무결성 점검
+	if( !iCheck ){ iCheck=idCheck();
+	}else {
+	// 2) 서버로 id 확인요청 -> view_Page(팝업창) 작성
+		let url="idDupCheck?id=" + document.getElementById('id').value;
+		window.open(url,'_blank','width=400,height=300,resizable=yes,scrollbars=yes,toolbar=no,menubar=yes');
+	}
+} //
+
+// ----------------------------------------------------
 // ** 입력값에 대한 무결성 체크
 // => ID 중복 확인, 입력값확인
 
@@ -223,7 +239,9 @@ onload=function() {
 							<!-- 아이디 -->
 							<li class="category ct1">아이디<i class="xi-star"></i>
 								<div class="right_info2">(영문/숫자,4~10자)</div> <br> <input
-								class="value" type="text" name="id" id="id"> <br> <span
+								class="value idInput" type="text" name="id" id="id">
+								&nbsp; <button type="button" id="idDup" onclick="idDupCheck()">ID중복확인</button>
+								<br> <span
 								id="iMessage" class="eMessage"></span>
 							</li>
 							<!-- 비밀번호 -->
@@ -279,7 +297,7 @@ onload=function() {
 					<!-- 회원가입 submit -->
 					<div>
 						<input type="submit" onclick="return inCheck()" id="submitTag"
-							class="submit_box_wrap" value="가입">
+							class="submit_box_wrap" value="가입" disabled>
 						<!-- => Tag 의 onclick 이벤트를 작성하고, onclick 이벤트핸들러가 가지고있던
                  기본동작인 submit 을 선택적으로 진행되도록 해준다. 
                  - submit 진행 : default (또는 return true)

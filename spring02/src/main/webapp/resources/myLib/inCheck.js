@@ -29,12 +29,15 @@
 
 // 1) ID
 // => 길이, 영문과 숫자만 가능
+let special = /[a-z.0-9]/gi;
 function idCheck () {
 	let id = document.getElementById('id').value;
 	
 	if (id.length<4 || id.length>10){
 		document.getElementById('iMessage').innerHTML = 'id는 4~10 글자 입니다.';
 		return false;
+	// => test(검사 대상문자) 활용
+	//    정규식에 정의된 문자가 아닌 문자가 있으면 false
 	} else if (id.replace(/[a-z.0-9]/gi,'').length>0){
 		document.getElementById('iMessage').innerHTML = 'id는 영문과 숫자만 가능합니다.';
 		return false;
@@ -43,7 +46,9 @@ function idCheck () {
 		return true;
 	}
 }
+
 // 2) Password
+special = /[a-z.0-9.!-*.@:;]/gi;
 function pwCheck () {
 	let pw = document.getElementById('password').value;
 	
@@ -52,12 +57,13 @@ function pwCheck () {
 		return false;
 
 	// => 영문, 숫자, 특수문자로만 구성
-	} else if(pw.replace(/[a-z.0-9.!-*.@:;]/gi,"")>0){
+	/*} else if(!special.test(pw)){*/
+	} else if(pw.replace(special, '').length > 0){
 		document.getElementById('pMessage').innerHTML = '영문, 숫자, 특수문자로만 구성되어야 합니다.';
 		return false;
-	
+
 	// => 특수문자는 반드시 포함
-	} else if(!(/[!-*.@:;]/.test(id))){
+	} else if(pw.replace(/[!-*.@:;]/gi,'').length >= pw.length){
 		document.getElementById('pMessage').innerHTML = '특수문자는 반드시 포함되어야 합니다.';
 		return false;
 	} else {
@@ -65,35 +71,98 @@ function pwCheck () {
 		return true;
 	}
 }
+
 // 3) Password2
 function pw2Check () {
+	let pw = document.getElementById('password').value;
 	let pw2 = document.getElementById('password2').value;
 	
-	return true;
+	if(pw != pw2){
+		document.getElementById('p2Message').innerHTML = '재입력 비밀번호가 일치 하지 않습니다';
+		return false;
+	} else {
+		document.getElementById('p2Message').innerHTML = '';
+		return true;
+	}
 }
+
 // 4) Name
 function nmCheck () {
 	let name = document.getElementById('name').value;
 	
-	return true;
+	if(name.replace(/[가-힣.a-z]/gi,"").length>0){
+		document.getElementById('nMessage').innerHTML = '이름이 올바르지 않습니다1.';
+		return false;
+/*	} else if(name.repalce(/[가-힣]/,"")>0 || name.replace(/[a-z]/gi,"")>0){
+		document.getElementById('nMessage').innerHTML = '이름이 올바르지 않습니다2.';
+		return false;*/
+	} else {
+		document.getElementById('nMessage').innerHTML = '';
+		return true;
+	}
 }
+
 // 5) Age
+// => 정수의 조건 : 숫자이면서 소수점이 없어야함
+// => Number .isInteger(n) : n 이 정수일때만 true 반환
+// 	-> 단, n 은 숫자 type 이어야만 함
+//  -> value 속성의 값은 문자 Type 이므로 숫자화_parseInt() 가 필요함
+//  -> 단, parseInt(age) 사용시 주의 
+//     - 실수의 경우에는 정수만 사용 (123.56 -> 123)
+//     - 숫자 뒤쪽에 문자가 포함되면 앞쪽의 숫자만 가져와 정수 return (123abc -> 123)
+//     - 문자로 시작하면 문자로 취급, NaN(Not a Number) 를 return
+// => 숫자가 아닌 값이 있는지 확인, Number.isInteger(...)확인
 function agCheck () {
 	let age = document.getElementById('age').value;
 	
-	return true;
+	if(age.replace(/[^0-9]/,'').length < age.length || !Number.isInteger(parseInt(age))){
+		document.getElementById('aMessage').innerHTML = '숫자가 아닌 값이 들어갔습니다.';
+		return false;
+	} else {
+		document.getElementById('aMessage').innerHTML = '';
+		return true;
+	}
 }
-// 6) Point 
+
+// 6) Point
+// => 정수 또는 실수 허용
+// => 범위: 100 ~ 10000
+// => parseFloat(point)
+//      -> 오류 또는 입력값이 없는 경우 NaN return
+//      -> 확인 : Number.isNaN(parseFloat(point)) 
+//    -> 단, 숫자로 시작하면 뒤쪽에 문자가 섞여있어도 숫자값만 사용함 ( NaN 을 return 하지않음 )
 function poCheck () {
 	let point = document.getElementById('point').value;
+	console.log(`** parseFloat(point) => ${parseFloat(point)}`);
+	console.log(`** Number.isNaN(point) => ${Number.isNaN(point)}`);
+	console.log(`** Number.isNaN(parseFloat(point)) => ${Number.isNaN(parseFloat(point))}`);
 	
-	return true;
+	// => 숫자 아닌값이 있는지 확인, Number.isNaN(...) 적용
+	// => 단, 소숫점은 허용
+	//    (비교값으로 소숫점을 사용하기위해 "/." 으로 표기함)
+	if(point.replace(/[^0-9.\.]/g,'').length < point.length || Number.isNaN(parseFloat(point))){
+		document.getElementById('oMessage').innerHTML = 'Point 는 정수, 실수만 가능합니다.';
+		return false;
+	} else if(parseFloat(point)<100 || parseFloat(point)> 10000){
+		document.getElementById('oMessage').innerHTML = 'Point 값이 범위(100~10000) 를 벗어납니다.';
+		return false;
+	} else {
+		document.getElementById('oMessage').innerHTML = '';
+		return true;
+	}
 }
+
 // 7) Birthday
 function bdCheck () {
 	let birthday = document.getElementById('birthday').value;
 	
-	return true;
+	if(birthday.length != 10){
+		document.getElementById('bMessage').innerHTML = 'Birthday (yyyy-mm-dd) 입력 확인하세요.';
+		return false;
+	} else {
+		document.getElementById('bMessage').innerHTML = '';
+		return true;
+	}
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

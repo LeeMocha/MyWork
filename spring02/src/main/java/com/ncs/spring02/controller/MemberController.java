@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -309,4 +310,17 @@ public class MemberController {
 		}
 		return uri;
 	}
+	
+	@GetMapping("/idDupCheck")
+	public void idDupCheck(@RequestParam("id") String id, Model model) {
+		// 1) newID 존재여부 확인 & 결과 모델에 처리
+		if(null != service.selectOne(id)) {
+			// => 사용 불가능
+			model.addAttribute("idUse", "F");
+		}else {
+			// => 사용 가능
+			model.addAttribute("idUse", "T");
+		};
+	}
+	
 } // class

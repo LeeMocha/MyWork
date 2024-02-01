@@ -45,6 +45,7 @@
 	<a href="member/memberList">MList</a>&nbsp;
 	<a href="jo/joList">JList</a>&nbsp;
 	<a href="board/boardList">BList</a>&nbsp;
+	<a href="bcrypt">BCrypt</a>&nbsp;
 </body>
 <script type="text/javascript">
 	function delchk() {
