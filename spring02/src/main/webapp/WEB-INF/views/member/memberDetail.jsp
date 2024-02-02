@@ -16,10 +16,16 @@
 <table border=1>
 	<c:if test="${ !empty requestScope.apple }">
 		<tr height="40">
+			<th bgcolor="yellow"> IMAGE </th><td><img alt="myImage"  src="/spring02/resources/uploadImages/${ m.uploadfile }" width="40" height="50"></td>
+		</tr>
+		<tr height="40">
 			<th bgcolor="yellow"> I D </th><td>${ m.id }</td>
 		</tr>
 		<tr height="40">
 			<th bgcolor="yellow"> NAME </th><td>${ m.name }</td>
+		</tr>
+		<tr height="40">
+			<th bgcolor="yellow"> Password </th><td>${ m.password }</td>
 		</tr>
 		<tr height="40">
 			<th bgcolor="yellow"> AGE </th><td>${ m.age }</td>

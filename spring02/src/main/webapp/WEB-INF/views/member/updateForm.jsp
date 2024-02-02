@@ -16,10 +16,11 @@
 			<td bgcolor="LightPueple" style="color:white;"><label for="id">I D </label></td>
 			<td><input type="text" id="id" name="id" size ="30" value="${ m.id }" readonly ></td>
 		</tr>
+<%-- 	PasswordEncoder 적용 후 분리함	
 		<tr height="40">
 			<td bgcolor="LightPueple" style="color:white;"><label for="password">Password </label></td>
 			<td><input type="password" id="password" name="password" value="${ m.password }" size ="30"></td>
-		</tr>
+		</tr> --%>
 		<tr height="40">
 			<td bgcolor="LightPueple" style="color:white;"><label for="name">Name </label></td>
 			<td><input type="text" id="name" name="name" value="${ m.name }" size ="30"></td>
@@ -69,7 +70,11 @@
 <hr>
 => ${requestScope.message}<br><hr><br>
 </c:if>
-
+<br>
+&nbsp;<a href="pwUpdate">비밀번호 수정</a>&nbsp;
+<br>
+<hr>
+<br>
 &nbsp;<a href="/spring02/home">Home</a>&nbsp;
 &nbsp;<a href="javascript:history.go(-1)">이전으로</a>&nbsp;
 

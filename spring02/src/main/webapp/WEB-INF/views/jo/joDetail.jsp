@@ -40,8 +40,9 @@
 <h3>** ${ j.jno }조의 조원 목록 **</h3>
 <table border="1" style="width:100%">
 	<tr bgcolor="cyan">
+		<th>Images</th>
 		<th>ID</th>
-		<th>Password</th>
+		<!-- <th>Password</th> -->
 		<th>Name</th>
 		<th>Age</th>
 		<th>Jno</th>
@@ -53,8 +54,9 @@
 	<c:if test="${ !empty requestScope.members }">
 		<c:forEach var="m" items="${ requestScope.members }">
 			<tr>
+				<td style="text-align:center;"><img alt="myImage"  src="/spring02/resources/uploadImages/${ m.uploadfile }" width="20" height="30"></td>
 				<td>${ m.id }</td>
-				<td>${ m.password }</td>
+				<%-- <td>${ m.password }</td> --%>
 				<td>${ m.name }</td>
 				<td>${ m.age }</td>
 				<td>${ m.jno }</td>

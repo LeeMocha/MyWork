@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>** LoginForm **</title>
 <script src="/spring02/resources/myLib/inCheck.js"></script>
-<script src="/spring02/resources/myLib/myStyle.css"></script>
+<link rel="stylesheet" href="/spring02/resources/myLib/myStyle.css" type="text/css"/>
 <script>
 'use strict'
 

@@ -22,5 +22,7 @@ public interface MemberService {
 	int delete(String id); // delete
 
 	List<MemberDTO> selectJoList(int jno); // selectJoList
+	
+	int pwUpdate(MemberDTO dto); // pwUpdate
 
 }
