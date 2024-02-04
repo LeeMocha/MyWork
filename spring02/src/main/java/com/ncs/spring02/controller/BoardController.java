@@ -15,6 +15,7 @@ import com.ncs.spring02.service.BoardService;
 
 import lombok.AllArgsConstructor;
 
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/board")
