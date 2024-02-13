@@ -309,8 +309,27 @@ onload=function() {
 								class="birth year selValue" name="rid">
 							</li>
 							<!-- File Upload 기능 추가 -->
-							<li class="category ct1">사진 업로드<br> <input type="file"
-								class="birth year selValue" name="uploadfilef" id="uploadfilef">
+							<li class="category ct1">사진 업로드<br>
+								<img alt="myImage" src="" class="select_img"><br>
+							 	<input type="file"	class="birth year selValue" name="uploadfilef" id="uploadfilef">
+								<script>
+	        						document.getElementById('uploadfilef').onchange=function(e){
+	         							if(this.files && this.files[0]) {
+	            							let reader = new FileReader;
+	            							reader.readAsDataURL(this.files[0]);
+	             							reader.onload = function(e) {
+	                							// => jQuery를 사용하지 않는경우 
+	                							document.getElementsByClassName('select_img')[0].src=e.target.result;
+	
+	                							//$(".select_img").attr("src", e.target.result)
+	               								//            .width(70).height(90); 
+	               								// jQuery는 모든 속성들을 메서드(함수)화 시켜놓았는데 그 메서드의 인자에 값을 넣게되는 형식
+	               								// 그리고 모든 return 값은 다시 $선택자로 오기때문에 Chainging 가능
+	               			
+						              		} // onload_function
+	         							} // if   
+	        						}; //change  
+	     	 					</script>
 							</li>
 						</ul>
 					</div>

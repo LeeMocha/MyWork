@@ -142,7 +142,7 @@ public class MemberDAO {
 	public int update(MemberDTO dto) {
 		sql = "UPDATE member SET "
 				+ "name=?, age=?, jno=?, info=?"
-				+ ", point=?, birthday=?, rid=? WHERE id= ?";
+				+ ", point=?, birthday=?, rid=?, uploadfile=? WHERE id= ?";
 		try {
 			pst = cn.prepareStatement(sql);
 			
@@ -153,7 +153,8 @@ public class MemberDAO {
 			pst.setDouble(5, dto.getPoint());
 			pst.setString(6, dto.getBirthday());
 			pst.setString(7, dto.getRid());
-			pst.setString(8, dto.getId());
+			pst.setString(8, dto.getUploadfile());
+			pst.setString(9, dto.getId());
 
 			return pst.executeUpdate();
 

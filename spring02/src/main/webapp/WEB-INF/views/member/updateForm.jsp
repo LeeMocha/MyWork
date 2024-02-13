@@ -10,7 +10,7 @@
 <body>
 <h2>**  Web MVC2 UpdateForm **</h2>
 <c:set value="${ requestScope.apple }" var="m"/>
-<form action="update" method="post">
+<form action="update" method="post" enctype="multipart/form-data">
 <table>
 		<tr height="40">
 			<td bgcolor="LightPueple" style="color:white;"><label for="id">I D </label></td>
@@ -56,6 +56,39 @@
 		<tr height="40">
 			<td bgcolor="LightPueple" style="color:white;"><label for="rid">추천인 </label></td>
 			<td><input type="text" id="rid" name="rid" value="${ m.rid }"  size ="30"></td>
+		</tr>
+		<!-- Image Update 추가 
+         => form Tag : method, enctype 확인
+         => new Image 를 선택하는 경우 -> uploadfilef 사용
+         => new Image 를 선택하지않는 경우 
+            -> 본래 Image 를 사용 -> uploadfile 값이 필요함 (hidden 으로 보관)
+   -->   
+		<tr height="40">
+			<td bgcolor="LightPueple" style="color:white;"><label for="uploadfilef">Image </label></td>
+			<td>
+				<img alt="myImage"  src="/spring02/resources/uploadImages/${ m.uploadfile }" width="40" height="50" class="select_img">
+				<br>
+				<input type="hidden" id="uploadfile" name="uploadfile" value="${ m.uploadfile }" >
+				<input type="file" id="uploadfilef" name="uploadfilef" value="${ m.uploadfilef }"  size ="30">
+			</td>
+		<script>
+        document.getElementById('uploadfilef').onchange=function(e){
+         if(this.files && this.files[0]) {
+            let reader = new FileReader;
+            	reader.readAsDataURL(this.files[0]);
+             		reader.onload = function(e) {
+                		// => jQuery를 사용하지 않는경우 
+                		document.getElementsByClassName('select_img')[0].src=e.target.result;
+                
+               			//$(".select_img").attr("src", e.target.result)
+               			//            .width(70).height(90); 
+               			// jQuery는 모든 속성들을 메서드(함수)화 시켜놓았는데 그 메서드의 인자에 값을 넣게되는 형식
+               			// 그리고 모든 return 값은 다시 $선택자로 오기때문에 Chainging 가능
+               			
+              		} // onload_function
+         		} // if   
+        	}; //change  
+     	 </script>
 		</tr>
 		<tr height="40">
 			<td></td>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapperInterface.MemberMapper">
+
+	<!-- ** selectList  -->
+	<select id="selectList" resultType="com.ncs.spring02.domain.MemberDTO">
+		SELECT * FROM member
+	</select>
+	
+	<!-- ** selectOne  -->
+	<select id="selectOne" resultType="com.ncs.spring02.domain.MemberDTO">
+		SELECT * FROM member WHERE id = #{id}
+	</select>
+	
+	<!-- ** insert  -->
+	<insert id="insert" >
+		INSERT INTO  member VALUES (#{id},#{password},#{name}
+		,#{age},#{jno},#{info},#{point},#{birthday},#{rid},#{uploadfile})
+	</insert>
+	
+	<!-- ** update  -->
+	<update id="update" >
+		UPDATE member SET name=#{name}, age=#{age}, jno=#{jno}, info=#{info}
+		, point=#{point}, birthday=#{birthday}, rid=#{rid}, uploadfile=#{uploadfile} WHERE id= #{id}
+	</update>
+	
+	<!-- ** pwUpdate  -->
+	<update id="pwUpdate">
+		UPDATE member SET password = #{password} WHERE id = #{id}
+	</update>
+		
+	<!-- ** delete  -->
+	<delete id="delete">
+		DELETE FROM member WHERE id = #{id}
+	</delete>
+	
+	<!-- ** selectJoList -->
+	<select id="selectJoList" resultType="com.ncs.spring02.domain.MemberDTO">
+		SELECT * FROM member WHERE jno = #{jno}
+	</select>
+	
+</mapper>

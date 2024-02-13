@@ -11,7 +11,7 @@
 	<P>Home_time : ${serverTime}.</P>
 	<hr>
 	<c:if test="${ !empty sessionScope.loginName}">
-		<h3><br>${ sessionScope.loginName }님안녕하세요</h3>
+		<h3><br>${ sessionScope.loginName }님 안녕하세요</h3>
 	</c:if>
 	<c:if test="${ empty sessionScope.loginName }">
 		<h3>로그인 후 이용하세요~~~</h3><hr>
