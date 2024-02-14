@@ -1,4 +1,4 @@
-package com.ncs.spring02.service;
+package mapperInterface;
 
 import java.util.List;
 
@@ -6,9 +6,8 @@ import com.ncs.spring02.domain.BoardDTO;
 
 import pageTest.Criteria;
 
-public interface BoardService {
-	
-	
+public interface BoardMapper {
+
 	// ** selectList()
 	public List<BoardDTO> selectList();
 	
@@ -27,8 +26,12 @@ public interface BoardService {
 	// ** delete()
 	public int delete(BoardDTO dto);
 	
+	// ** rinsert()
 	public int rinsert(BoardDTO dto);
 
+	// ** stepUpdate()
+	public int stepUpdate(BoardDTO dto);
+	
 	public List<BoardDTO> bPageList(Criteria cri);
 	
 	public int totalRowsCount(Criteria cri);

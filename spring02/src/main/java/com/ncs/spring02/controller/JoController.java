@@ -87,7 +87,7 @@ public class JoController {
 		return uri;
 	} // update
 	
-	@PostMapping("/delete")
+	@GetMapping("/delete")
 	public String joDelete(Model model, @RequestParam("jCode")int jCode, RedirectAttributes rttr) {
 		String uri = "redirect:/jo/joList";
 		

@@ -4,6 +4,10 @@
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Mybatis 설정을 하기전 밑에 태그중 Namespaces 에서 Mybatis 체크 되어있는지 확인.
+		체크 하게될 경우 위에 xmlns:과 xsi:schemaLocation 에 Mybatis 가 추가가 될 것임.
+	 -->
+	
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
@@ -12,7 +16,10 @@
 	
 	<!-- ** Mybatis 설정 : interface 방식, root-context 에 설정 *********  
       => DAO 에서의 sql 구문을 xml (Mapper) 로 처리
-      => DB_Connection, Mybatis 설정 
+      => DB_Connection, Mybatis 설정
+      
+      우리가 DB Connection 클래스에서 DB와 연동하는 부분을 bean을 만들어서 자동으로 연동시켜줌
+      그에 필요한 mysql 주소와 localhost번호 유저아이디 pw 등 정보를 property 로 setter 주입 해줘야함 
       1) DB_Connection     -->      
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
     	<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
