@@ -34,6 +34,7 @@ public class Criteria {
 	private int sno; // Start no. 페이지에 해당하는 첫번째 row의 번호 (계산 필요)
 	private int eno; // End no. 페이지에 해당하는 마지막 row의 번호 (계산 필요 => Oracle 만 필요함, mysql은 limit이 있기 때문에 필요없음)
 	
+	
 	// 1) 기본 생성자 : 필드값 초기화
 	public Criteria() {
 		this.rowsPerPage = 5;

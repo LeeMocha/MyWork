@@ -4,7 +4,7 @@
 	
 	<!-- ** selectList  -->
 	<select id="selectList" resultType="com.ncs.spring02.domain.JoDTO">
-		SELECT j.jno, j.jname, j.captain, m.name, j.project, j.slogan FROM jo j LEFT OUTER JOIN member m ON j.captain = m.id
+		SELECT j.jno, j.jname, j.captain, m.name cname, j.project, j.slogan FROM jo j LEFT OUTER JOIN member m ON j.captain = m.id
 	</select>
 	
 	<!-- ** selectOne -->

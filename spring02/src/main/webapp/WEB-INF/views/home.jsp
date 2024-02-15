@@ -24,6 +24,8 @@
 	<img alt="mainImage2" src="/spring02/resources/images/karina2.gif" width="300" height="400" >
 	<br> &nbsp;
 	<br>
+	<br>
+	<br>
 	<!--  Login 전  -->
 	<c:if test="${ empty sessionScope.loginName}">
 		&nbsp;

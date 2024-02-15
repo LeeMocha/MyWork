@@ -5,6 +5,7 @@ import java.util.List;
 import com.ncs.spring02.domain.BoardDTO;
 
 import pageTest.Criteria;
+import pageTest.SearchCriteria;
 
 public interface BoardService {
 	
@@ -29,7 +30,12 @@ public interface BoardService {
 	
 	public int rinsert(BoardDTO dto);
 
-	public List<BoardDTO> bPageList(Criteria cri);
+	public List<BoardDTO> bPageList(SearchCriteria cri);
 	
-	public int totalRowsCount(Criteria cri);
+	public int totalRowsCount(SearchCriteria cri);
+	
+	public List<BoardDTO> bCheckList(SearchCriteria cri);
+	
+	public int checkRowsCount(SearchCriteria cri);
+	
 }
