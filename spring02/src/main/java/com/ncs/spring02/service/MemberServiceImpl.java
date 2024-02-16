@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ncs.spring02.domain.MemberDTO;
 
 import mapperInterface.MemberMapper;
+import pageTest.SearchCriteria;
 
 //** Service
 //=> 요청클래스 와 DAO클래스 사이의 연결(완충지대) 역할
@@ -94,6 +95,26 @@ public class MemberServiceImpl implements MemberService {
 	public int pwUpdate(MemberDTO dto) {
 		return mapper.pwUpdate(dto);
 	}
+
+
+	@Override
+	public List<MemberDTO> mPageList(SearchCriteria cri) {
+		return mapper.mSearchList(cri);
+	}
+
+	@Override
+	public int totalRowsCount(SearchCriteria cri) {
+		return mapper.mSearchRowsCount(cri);
+	}
 	
+	@Override
+	public List<MemberDTO> mCheckList(SearchCriteria cri) {
+		return mapper.mCheckList(cri);
+	}
+
+	@Override
+	public int checkRowsCount(SearchCriteria cri) {
+		return mapper.checkRowsCount(cri);
+	}
 	
 } // class

@@ -34,9 +34,10 @@ public class PageMaker {
 	private int lastPageNo; // 출력 가능한 전체 마지막 PageNo : 게산 필요
 	private boolean prev; // 이전 PageBlock 으로
 	private boolean next; // 다음 Pageblock 으로
+	private String mappingName; // => bCheckList 또는 bPageList 등 요청방법에 해당하는 url 을 만들수 있도록 하기 위한 필드
 	
 	
-	// ** 필요한 값 계산
+	// ** 필요한 값 set & 계산
 	// 1) Criteria
 	// => ver01 : Criteria
 	// Criteria cri;
@@ -45,6 +46,10 @@ public class PageMaker {
 	
 	public void setCri (SearchCriteria cri) {
 		this.cri = cri;
+	}
+	
+	public void setMapptinName(String mappingName) {
+		this.mappingName = mappingName;
 	}
 	
 	// 2) totalRowsCount
@@ -100,16 +105,20 @@ public class PageMaker {
 	// => ?currPage=7&rowsPerPage=10 이것을 만들어줌
 	//     ? 부터 만들어지므로 jsp Code에서 ? 포함하지 않도록 주의    
 	
+	
+	// => mappingName을 앞쪽에 추가함
+	
 	// ** ver01
 	// => QueryString 자동생성 
-	//    ?currPage=4&rowsPerPage=3  
+	//    bPageList?currPage=4&rowsPerPage=3
+	//    또는 bcheckList?currPage=4&rowsPerPage=3
 	public String makeQuery(int currPage) {
 	UriComponents uriComponents = UriComponentsBuilder.newInstance()
 			.queryParam("currPage", currPage)
 			.queryParam("rowsPerPage", cri.getRowsPerPage())
-			.build(); 
+			.build();
 		
-		return uriComponents.toString();
+		return this.mappingName + uriComponents.toString();
 	} // makeQuery
 	
 	// ** ver02
@@ -152,7 +161,7 @@ public class PageMaker {
 				.queryParams(checkMap)
 				.build();
 		
-		return uriComponents.toString();
+		return this.mappingName + uriComponents.toString();
 	} // searchQuery
 	
 	

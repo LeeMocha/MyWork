@@ -77,7 +77,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int checkRowsCount(SearchCriteria cri) {
-		return mapper.bSearchRowsCount(cri);
+		return mapper.checkRowsCount(cri);
 	}
 	
 }

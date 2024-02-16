@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>** Spring_MVC02 BoardList **</title>
+<title>** Spring_MVC02 MemberList **</title>
 <link rel="stylesheet" type="text/css" href="/spring02/resources/myLib/myStyle.css" >
 <script type="text/javascript">
 "use strict"
@@ -19,7 +19,7 @@
 // 2) location 객체의 메서드
 // => href, replace('...'), reload() 
 function searchDB(){
-	self.location = 'bPageList'
+	self.location = 'mPageList'
 /* 				+ '${pageMaker.makeQuery(1)}'
 					=> 하나의 jsp 문서로 다양한 요청을 처리하기위해 쿼리스트링에 url 을 포함했기 때문에
 					첫 요청에서는 makeQuery 메서드 사용할 수 없음 */
@@ -67,7 +67,7 @@ function checkClear(){
 </script>
 </head>
 <body>
-<h2>** Spring_MVC02 bPageList **</h2>
+<h2>** Spring_MVC02 mPageList **</h2>
 <hr>
 <c:if test="${ !empty request.message }">
 => ${ request.message }<br><hr>
@@ -76,102 +76,84 @@ function checkClear(){
 <div id="searchBar">
 	<select name="searchType" id="searchType" onchange="keywordClear()">
 		<option value="all" ${ pageMaker.cri.searchType eq 'all' ? 'selected' : '' } >전체</option>
-		<option value="title" ${ pageMaker.cri.searchType eq 'title' ? 'selected' : '' } >제목</option>
-		<option value="content" ${ pageMaker.cri.searchType eq 'content' ? 'selected' : '' } >내용</option>
-		<option value="id" ${ pageMaker.cri.searchType eq 'id' ? 'selected' : '' } >글쓴이</option>
-		<option value="regdate" ${ pageMaker.cri.searchType eq 'regdate' ? 'selected' : '' } >작성일자</option>
-		<option value="tc" ${ pageMaker.cri.searchType eq 'tc' ? 'selected' : '' } >제목+내용</option>
+		<option value="id" ${ pageMaker.cri.searchType eq 'id' ? 'selected' : '' } >id</option>
+		<option value="name" ${ pageMaker.cri.searchType eq 'name' ? 'selected' : '' } >이름</option>
+		<option value="age" ${ pageMaker.cri.searchType eq 'age' ? 'selected' : '' } >나이</option>
+		<option value="birthday" ${ pageMaker.cri.searchType eq 'birthday' ? 'selected' : '' } >생일</option>
+		<option value="info" ${ pageMaker.cri.searchType eq 'info' ? 'selected' : '' } >info</option>
+		<option value="rid" ${ pageMaker.cri.searchType eq 'rid' ? 'selected' : '' } >추천인</option>
 	</select>
 	<input type="text" name="keyword" id="keyword" value="${ pageMaker.cri.keyword }">	
 	<button id="searchBtn" onclick="searchDB()" >Search</button>
 	<br>
 	<br>
 	<!-- checkBox Test -->
-	<form action="bCheckList" method="get">
-		<b>ID : </b>
+	<form action="mCheckList" method="get">
+		<b>조 이름 : </b>
 		<!-- check 의 선택한 값 유지를 위한 코드 -->
       	<c:set var="ck1" value="false" />
       	<c:set var="ck2" value="false" />
       	<c:set var="ck3" value="false" />
       	<c:set var="ck4" value="false" />
       	<c:set var="ck5" value="false" />
-      	<c:forEach  var="id" items="${pageMaker.cri.check}" >
-        	<c:if test="${ id=='admin'}"> <c:set var="ck1" value="true" /> </c:if>
-        	<c:if test="${ id=='simsim916'}"> <c:set var="ck2" value="true" /> </c:if>
-        	<c:if test="${ id=='agr4005'}"> <c:set var="ck3" value="true" /> </c:if>
-        	<c:if test="${ id=='bamboo7'}"> <c:set var="ck4" value="true" /> </c:if>
-        	<c:if test="${ id=='kso1'}"> <c:set var="ck5" value="true" /> </c:if>
+      	<c:forEach  var="jno" items="${pageMaker.cri.check}" >
+        	<c:if test="${ jno =='1'}"> <c:set var="ck1" value="true" /> </c:if>
+        	<c:if test="${ jno =='2'}"> <c:set var="ck2" value="true" /> </c:if>
+        	<c:if test="${ jno =='3'}"> <c:set var="ck3" value="true" /> </c:if>
+        	<c:if test="${ jno =='4'}"> <c:set var="ck4" value="true" /> </c:if>
+        	<c:if test="${ jno =='7'}"> <c:set var="ck5" value="true" /> </c:if>
       	</c:forEach>
 	    <!-- --------------------------------- -->
-		<input type="checkbox" name="check" class="clear" value="admin" ${ ck1 ? 'checked' : ''}>관리자&nbsp;
-		<input type="checkbox" name="check" class="clear" value="simsim916" ${ ck2 ? 'checked' : '' }>최문석&nbsp;
-		<input type="checkbox" name="check" class="clear" value="agr4005" ${ ck3 ? 'checked' : ''}>김수빈&nbsp;
-		<input type="checkbox" name="check" class="clear" value="bamboo7" ${ ck4 ? 'checked' : ''}>최승삼&nbsp;
-		<input type="checkbox" name="check" class="clear" value="kso1" ${ ck5 ? 'checked' : ''}>김수옥&nbsp;
+		<input type="checkbox" name="check" class="clear" value="1" ${ ck1 ? 'checked' : ''}>Business&nbsp;
+		<input type="checkbox" name="check" class="clear" value="2" ${ ck2 ? 'checked' : '' }>static&nbsp;
+		<input type="checkbox" name="check" class="clear" value="3" ${ ck3 ? 'checked' : ''}>칭찬해조&nbsp;
+		<input type="checkbox" name="check" class="clear" value="4" ${ ck4 ? 'checked' : ''}>카톡으로얘기하조&nbsp;
+		<input type="checkbox" name="check" class="clear" value="7" ${ ck5 ? 'checked' : ''}>칠면조&nbsp;
 		<input type="submit" value="Search">&nbsp;
 		<input type="reset" value="Clear" onclick="return checkClear()"><br><br>
 	</form>
 </div>
 <br>
-<br>
 <div style="width:100%; display:flex; justify-content:center; ">
-<table style="width:85%;">
-	<tr bgcolor="Orange">
-		<th>글번호</th>
-		<th>제 목</th>
-		<th>작성자</th>
-		<th>작성시간</th>
-		<th>조회수</th>
+<table border="1" style="width:100%">
+	<tr bgcolor="cyan">
+		<th>ID</th>
+		<!-- <th>Password</th> -->
+		<th>Name</th>
+		<th>Age</th>
+		<th>Jno</th>
+		<th>Info</th>
+		<th>Point</th>
+		<th>Birthday</th>
+		<th>추천인</th>
+		<th>Image</th>
 	</tr>
 	<c:if test="${ !empty requestScope.banana }">
-		<c:forEach var="b" items="${ requestScope.banana }">
+		<c:forEach var="m" items="${ requestScope.banana }">
 			<tr>
-				<td>${ b.seq }</td>
-				<td>
-				<!-- 답글 등록 되면 Title 출력전에 들여쓰기 추가 -->
-				<c:if test="${ b.indent > 0 }">
-					<c:forEach begin="1" end="${ b.indent }">
-						<span>&nbsp;&nbsp;</span>
-					</c:forEach>
-					<span style="color:Red;">re...</span>
-				</c:if>
-				<c:if test="${ !empty sessionScope.loginID }">
-				<a href="detail?jCode=D&seq=${ b.seq }">${ b.title }</a>
-				</c:if>
-				<c:if test="${ empty sessionScope.loginID}">
-					${ b.title }
-				</c:if>
-				</td>
-				<td>${ b.id }</td>
-				<td>${ b.regdate }</td>
-				<td>${ b.cnt }</td>
+				<td>${ m.id }</td>
+				<%-- <td>${ m.password }</td> --%>
+				<td>${ m.name }</td>
+				<td>${ m.age }</td>
+				<td>${ m.jno }</td>
+				<td>${ m.info }</td>
+				<td>${ m.point }</td>
+				<td>${ m.birthday }</td>
+				<td>${ m.rid }</td>
+				<td style="text-align:center;"><img alt="myImage"  src="/spring02/resources/uploadImages/${ m.uploadfile }" width="40" height="50"></td>
 			</tr>
 		</c:forEach>
 	</c:if>
 	<c:if test="${ empty requestScope.banana }">
-		<tr><td colspan="5">~~~ 출력할 게시글이 없습니다 ~~~</td></tr>
+		<tr><td colspan="9">~~~ 출력할 멤버가 없습니다 ~~~</td></tr>
 	</c:if>
-
 </table>
 </div>
 <br>
 <hr>
 <br>
 <div align="center">
-<!-- ** Paging Block ** 
-   => ver01: QueryString 수동 입력 -> 자동생성 makeQuery 메서드 적용
-   => ver02: makeQuery 메서드 -> searchQuery 메서드로 변경
-   1) FirstPage, Prev 
-   => Old
-       	<a href="bPageList?currPage=1&rowsPerPage=5">&LT;&LT;</a>&nbsp;
-    	<a href="bPageList?currPage=${pageMaker.spageNo - 1}&rowsPerPage=5">&LT;</a>&nbsp;&nbsp;
-   => ver01: makeQuery 적용
-   		<a href="bPageList${pageMaker.makeQuery(1)}">&LT;&LT;</a>&nbsp;
-    	<a href="bPageList${pageMaker.makeQuery(pageMake.spageNo-1)}">&LT;</a>&nbsp;&nbsp;
-   => ver02: searchQuery 적용
-   		<a href="bPageList${ pageMaker.searchQuery(1) }">&LT;&LT;</a>&nbsp;
-    	<a href="bPageList${ pageMaker.searchQuery(pageMake.spageNo-1) }">&LT;</a>&nbsp;&nbsp;
-      -->
+<!-- 1) Prev, First  -->
 	<c:choose>
     	<c:when test="${ pageMaker.prev && pageMaker.spageNo > 1 }">
     		<a href="${ pageMaker.searchQuery(1) }">&LT;&LT;</a>&nbsp;
@@ -204,7 +186,6 @@ function checkClear(){
      		<font color="#b6b6b6">&nbsp;&GT;&nbsp;&GT;&GT;</font>
      	</c:otherwise>
      </c:choose>
-
 </div>
 <c:if test="${ !empty requestScope.message }">
 		<hr> ${ requestScope.message }<br>
@@ -212,9 +193,6 @@ function checkClear(){
 <c:if test="${ !empty sessionScope.loginID }">
 <br>
 <hr>
-<div>
-&nbsp;<a href="boardInsert" id="write_botton"> 글쓰기 </a> &nbsp;
-</div>
 <br>
 </c:if>
 <hr>

@@ -46,8 +46,8 @@ a:active { color:Blue; }
 }
 /*  Check  List searchBar */
 #searchBar {
+	text-align : left;
 	color:DimGray ; font-family:돋움; font-size:14px;
-	float: left;
 }
 
 #write_botton{

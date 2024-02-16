@@ -1,5 +1,6 @@
 package com.ncs.spring02.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -145,7 +146,7 @@ public class BoardController {
 	//  public void bPageList(Model model, Criteria cri, PageMaker pageMaker)
 	// => ver02 : searchCriteria 사용(검색기능 추가)
 	@GetMapping("/bPageList")
-	public void bPageList(Model model, SearchCriteria cri, PageMaker pageMaker) {
+	public void bPageList(Model model, SearchCriteria cri, PageMaker pageMaker, HttpServletRequest request) {
 		// 1) Criteria 처리
 		// => ver01: currPage, rowsPerPage 값들은 Parameter 로 전달되어 자동으로 cri에 set
 		// => ver02: ver01 + searchType, keyword 도 동일하게 cri에 set 되어져 들어옴
@@ -160,20 +161,30 @@ public class BoardController {
 		
 		// 3) View 처리 : pageMaker 활용
 		// => cri, totalRowsCount (read from DB)
+		
+		// => 요청명을 url 에 포함하기 위함
+		String mappingName = 
+				request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/")+1);
+		
 		pageMaker.setCri(cri);
 		pageMaker.setTotalRowsCount(service.totalRowsCount(cri));
+		pageMaker.setMapptinName(mappingName);
 		model.addAttribute("pageMaker", pageMaker);
 	}
 	
 	
-	@GetMapping("/bCheckList")
-	public String bCheckList(Model model, SearchCriteria cri, PageMaker pageMaker) {
+	@GetMapping("/mCheckList")
+	public String mCheckList(Model model, SearchCriteria cri, PageMaker pageMaker, HttpServletRequest request) {
 		
 		String uri = "board/bPageList";
 		
+		// => 요청명을 url 에 포함하기 위함
+		String mappingName = 
+				request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/")+1);
+		
+		
 		// 1) Criteria 처리
 		cri.setSnoEno();
-		
 
 		// 2) Service 처리
 		// => check 의 값을 선택하지 않은경우 check 값을 null 로 확실하게 해줘야함.
@@ -187,12 +198,11 @@ public class BoardController {
 		// => cri, totalRowsCount (read from DB)
 		pageMaker.setCri(cri);
 		pageMaker.setTotalRowsCount(service.checkRowsCount(cri));
-		System.out.println(pageMaker.getCri());
-		System.out.println("ㅇㅇㅇ" + service.checkRowsCount(cri)); 
-		System.out.println(pageMaker.getTotalRowsCount()); 
+		pageMaker.setMapptinName(mappingName);
 		model.addAttribute("pageMaker", pageMaker);
 		
 		return uri;
-	}
+		
+	} // bCheckList
 	
 }

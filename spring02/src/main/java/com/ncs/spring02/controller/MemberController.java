@@ -24,6 +24,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ncs.spring02.domain.MemberDTO;
 import com.ncs.spring02.service.MemberService;
 
+import pageTest.PageMaker;
+import pageTest.SearchCriteria;
+
 //** IOC/DI 적용 ( @Component 의 세분화 ) 
 //=> 스프링 프레임워크에서는 클래스들을 기능별로 분류하기위해 @ 을 추가함.
 //=>  @Controller
@@ -478,5 +481,64 @@ public class MemberController {
 		}
 		return uri;
 	}
+	
+	@GetMapping("/mPageList")
+	public void mPageList(Model model, SearchCriteria cri, PageMaker pageMaker, HttpServletRequest request) {
+		// 1) Criteria 처리
+		// => ver01: currPage, rowsPerPage 값들은 Parameter 로 전달되어 자동으로 cri에 set
+		// => ver02: ver01 + searchType, keyword 도 동일하게 cri에 set 되어져 들어옴
+		cri.setSnoEno();
+		
+		// 2) Service 처리
+		// => 출력 대상인 Rows 를 select
+		// => ver01, 02 모두 같은 Service 메서드를 사용,
+		//		mapper interface 에서 사용하는 sql 구문 교체
+		// 	즉, BoardMapper.xml 에 새로운 sql문 두개 추가, BoardMapper.java interface 수정
+		model.addAttribute("banana", service.mPageList(cri));
+		
+		// 3) View 처리 : pageMaker 활용
+		// => cri, totalRowsCount (read from DB)
+		
+		// => 요청명을 url 에 포함하기 위함
+		String mappingName = 
+				request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/")+1);
+		
+		pageMaker.setCri(cri);
+		pageMaker.setTotalRowsCount(service.totalRowsCount(cri));
+		pageMaker.setMapptinName(mappingName);
+		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	@GetMapping("/mCheckList")
+	public String mCheckList(Model model, SearchCriteria cri, PageMaker pageMaker, HttpServletRequest request) {
+		
+		String uri = "member/mPageList";
+		
+		// => 요청명을 url 에 포함하기 위함
+		String mappingName = 
+				request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/")+1);
+		
+		
+		// 1) Criteria 처리
+		cri.setSnoEno();
+
+		// 2) Service 처리
+		// => check 의 값을 선택하지 않은경우 check 값을 null 로 확실하게 해줘야함.
+	    //    mapper 에서 명확하게 구분할수 있도록해야 정확한 저리가능  
+		if(cri.getCheck() != null && cri.getCheck().length < 1) {
+			cri.setCheck(null);
+		}
+		
+		model.addAttribute("banana", service.mCheckList(cri));
+		// 3) View 처리 : pageMaker 활용
+		// => cri, totalRowsCount (read from DB)
+		pageMaker.setCri(cri);
+		pageMaker.setTotalRowsCount(service.checkRowsCount(cri));
+		pageMaker.setMapptinName(mappingName);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return uri;
+		
+	} // bCheckList
 	
 } // class

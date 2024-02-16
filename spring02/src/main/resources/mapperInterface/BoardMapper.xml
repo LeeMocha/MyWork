@@ -251,9 +251,9 @@
       LIMIT #{sno}, #{rowsPerPage}
    </select>
    
-   <select id="checkRowsCount">
+   <select id="checkRowsCount" resultType="int">
    	SELECT COUNT(*) FROM board
-   	<if test="check!=null">
+   	<if test="check != null">
     	WHERE id IN 
     	<foreach collection="check" item="it" open="(" close=")" separator=",">
 	    	#{it}

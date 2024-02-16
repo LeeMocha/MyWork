@@ -115,10 +115,12 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		
+		<!-- 4. jUnit Test -> version : 4.12 로 수정 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -181,10 +183,19 @@
          	<artifactId>mybatis-spring</artifactId>
          	<version>1.2.4</version>
       	</dependency>
+      	
+      	<!-- => Test 추가 : Spring MVC Mybatis Test -->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-test</artifactId>
+         <version>${org.springframework-version}</version>
+      </dependency>
 
 	</dependencies>
 	<!-- Test -->
-	<!-- 4. jUnit Test -> version : 4.12 로 수정 5. 아랫쪽 두번째 <plugin> 의 <configuration> 
+	
+	<!-- 
+	5. 아랫쪽 두번째 <plugin> 의 <configuration> 
 		의 Java 버전 <source>1.8</source> <target>1.8</target> -->
 	<build>
 		<plugins>

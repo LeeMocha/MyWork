@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.ncs.spring02.domain.MemberDTO;
 
+import pageTest.SearchCriteria;
+
 public interface MemberMapper {
 	
 	// ** selectList
@@ -25,4 +27,15 @@ public interface MemberMapper {
 	
 	int pwUpdate(MemberDTO dto); // pwUpdate
 	
+	int totalRowsCount(SearchCriteria cri);
+	
+	List<MemberDTO> mPageList(SearchCriteria cri);
+	
+	List<MemberDTO> mSearchList(SearchCriteria cri);
+	
+	int mSearchRowsCount(SearchCriteria cri);
+	
+	List<MemberDTO> mCheckList(SearchCriteria cri);
+	
+	int checkRowsCount(SearchCriteria cri);
 }

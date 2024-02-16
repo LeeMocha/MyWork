@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.ncs.spring02.domain.MemberDTO;
 
+import pageTest.SearchCriteria;
+
 public interface MemberService {
 
 	// ** selectList
@@ -25,4 +27,11 @@ public interface MemberService {
 	
 	int pwUpdate(MemberDTO dto); // pwUpdate
 
+	int totalRowsCount(SearchCriteria cri); // totalRowsCount
+	
+	List<MemberDTO> mPageList(SearchCriteria cri); // mPageList
+	
+	List<MemberDTO> mCheckList(SearchCriteria cri);
+	
+	int checkRowsCount(SearchCriteria cri);
 }

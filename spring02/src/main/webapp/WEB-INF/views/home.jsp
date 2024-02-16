@@ -52,6 +52,8 @@
 	<br>
 	&nbsp;
 	<a href="board/bPageList">BPage</a>&nbsp;
+	&nbsp;
+	<a href="member/mPageList">mPage</a>&nbsp;
 </body>
 <script type="text/javascript">
 	function delchk() {
