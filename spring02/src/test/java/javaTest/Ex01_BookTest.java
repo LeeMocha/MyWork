@@ -2,7 +2,8 @@ package javaTest;
 
 import static org.junit.Assert.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+
 
 // ** Book class
 // => 멤버필드 3개(author, title, price) 정의, 이들을 모두 초기화 하는 생성자를 만드세요
@@ -45,7 +46,7 @@ class Book{
 
 //=> 자동 import 가 안되는경우
 // -> 프로젝트 우클릭 -> Build Path -> Configure Build Path.. 
-//       -> Libraries -> Add Library  -> JUnit5
+//       -> Libraries -> Add Library  -> JUnit4
 // -> @Test: import org.junit.Test 확인
 
 //=> pom.xml
@@ -117,10 +118,10 @@ public class Ex01_BookTest {
 		// 5.4) 
 		Book[] b1 = {new Book("엄미현", "죄 와 벌", 9900)
 				, new Book("톨스토이", "홍길동전", 19900)
-				, new Book("이정혁", "총균쇄",15000)};
+				, new Book("이정혁", "총균쇠",15000)};
 //		Book[] b2 = {new Book("엄미현", "죄 와 벌", 9900)
 //				, new Book("톨스토이", "홍길동전", 19900)
-//				, new Book("이정혁", "총균쇄",15000)};
+//				, new Book("이정혁", "총균쇠",15000)};
 		
 		Book[] b2 = {b1[0], b1[1], b1[2]};
 		
