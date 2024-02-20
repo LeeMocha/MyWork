@@ -24,6 +24,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ncs.spring02.domain.MemberDTO;
 import com.ncs.spring02.service.MemberService;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import pageTest.PageMaker;
 import pageTest.SearchCriteria;
 
@@ -137,25 +139,40 @@ import pageTest.SearchCriteria;
 // -> dependency 필요함 (pom.xml 확인)
 // -> 로깅레벨 단계 준수함 ( log4j.xml 의 아래 logger Tag 의 level 확인)
 //    TRACE > DEBUG > INFO > WARN > ERROR > FATAL(치명적인)
-//    <logger name="com.ncs.green">
+//    <logger name="com.ncs.spring02">
 //       <level value="info" />
 //    </logger>   
 
 // -> Logger 사용과의 차이점 : "{}" 지원안됨 , 호출명 log
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+@Log4j
+@AllArgsConstructor // 개별적인 @Autowired 생략 가능
 @Controller
 @RequestMapping(value = "/member")
 public class MemberController {
 
-	@Autowired(required = false)
+//	@Autowired(required = false)
 	MemberService service;
 	
-	@Autowired(required = false)
+//	@Autowired(required = false)
 	PasswordEncoder passwordEncoder;
 	// = new BCryptPasswordEcoder();
 	//   -> root-context.xml 에 bean 등록
 	
+	// ** Lombok @Log4j Test
+	@GetMapping("/log4jTest")
+	public String log4jTest() {
+		String name = "banana";
+		
+		log.error("** Lombok @Log4j Test Error: name => " + name);
+		log.warn("** Lombok @Log4j Test Warn: name => " + name);
+		log.info("** Lombok @Log4j Test Info: name => " + name);
+		log.debug("** Lombok @Log4j Test Debug: name => " + name);
+		log.trace("** Lombok @Log4j Test Trace: name => " + name);
+		
+		return "redirect:/";
+	}
 	
 // ** Login Form 출력
 // => ver01 : return String
@@ -339,6 +356,24 @@ public class MemberController {
 		// 2. Service & 결과 처리
 		// => PasswordEncoder 적용
 		dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+		
+	    // ** *****************************************
+	    // ** Transaction_AOP 적용 ********************* 
+	    // 1. 준비: pom.xml (dependency) 확인
+	    // =>  AspectJ(기본제공), AspectJ Weaver(추가)
+	    
+	    // 2. servlet-context.xml AOP 설정
+	    
+	    // 3. Rollback Test
+	    // 3.1) Aop xml 적용전 => insert1 은 입력되고, insert2 에서  500_Dupl..Key  오류 발생
+	    // 3.2) Aop xml 적용후 => insert2 에서 오류발생시 모두 Rollback 되어 insert1, insert2 모두 입력 안됨 
+	    
+	    // 3.1) Transaction 적용전 : 동일자료 2번 insert
+	    // => 첫번째는 입력완료(commit) 되고, 두번째자료 입력시 Key중복 오류발생 (500 발생)
+	    // 3.2) Transaction 적용후 : 동일자료 2번 insert
+	    // => 첫번째는 입력완료 되고, 두번째 자료입력시 Key중복 오류발생 하지만,
+	    //    rollback 되어 둘다 입력 안됨
+//	    service.insert(dto); // Transaction_Test, insert1
 		
 		if(service.insert(dto) > 0) {
 			// 성공 : 로그인 폼으로

@@ -53,7 +53,16 @@
 	&nbsp;
 	<a href="board/bPageList">BPage</a>&nbsp;
 	&nbsp;
-	<a href="member/mPageList">mPage</a>&nbsp;
+	<a href="member/mPageList">MPage</a>&nbsp;
+	<a href="etest">Exception</a>&nbsp;
+	<a href="member/log4jTest">@Log4jTest</a>&nbsp;
+	<br>
+	<hr>
+	<br>
+	&nbsp;<a href="greensn">GreenSN</a>&nbsp;
+	&nbsp;<a href="greenall">GreenALL</a>&nbsp;
+	&nbsp;<a href="jeju">JeJu</a>&nbsp;
+	&nbsp;<a href="gps">GPS</a>&nbsp;
 </body>
 <script type="text/javascript">
 	function delchk() {
