@@ -36,21 +36,19 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-      	<!-- ** AOP Test 
-         1) AspectJ -->
-      	<dependency>
-         	<groupId>org.aspectj</groupId>
-         	<artifactId>aspectjrt</artifactId>
-         	<version>${org.aspectj-version}</version>
-      	</dependency>
-      	<!-- 2) AspectJ Weaver 
-            : AOP 실습시에 반드시 추가해줄것 
-            : weaver가 AOP에서 advice를 핵심기능에 적용하는 설정 파일 -->
-      	<dependency>
-         	<groupId>org.aspectj</groupId>
+		<!-- ** AOP Test 1) AspectJ -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+		<!-- 2) AspectJ Weaver : AOP 실습시에 반드시 추가해줄것 : weaver가 AOP에서 advice를 핵심기능에 
+			적용하는 설정 파일 -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-        	<version>${org.aspectj-version}</version>
-      	</dependency>
+			<version>${org.aspectj-version}</version>
+		</dependency>
 
 		<!-- Logging -->
 		<dependency>
@@ -95,7 +93,7 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
@@ -124,7 +122,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<!-- 4. jUnit Test -> version : 4.12 로 수정 -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -173,39 +171,66 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3.1</version>
 		</dependency>
-		
+
 		<!-- 1) Spring JDBC : DriverManagerDataSource 사용을 위해 필요함 -->
-     	<dependency>
-        	<groupId>org.springframework</groupId>
-         	<artifactId>spring-jdbc</artifactId>
-         	<version>${org.springframework-version}</version>
-      	</dependency>
-		<!-- 2) Mybatis --> 
-    	<dependency>
-        	<groupId>org.mybatis</groupId>
-         	<artifactId>mybatis</artifactId>
-         	<version>3.3.1</version>
-      	</dependency>
-	    <!-- 3) Mybatis-Spring : 마이바티스와 스프링 연동을 위한 라이브러리 -->
-    	<dependency>
-        	<groupId>org.mybatis</groupId>
-         	<artifactId>mybatis-spring</artifactId>
-         	<version>1.2.4</version>
-      	</dependency>
-      	
-      	<!-- => Test 추가 : Spring MVC Mybatis Test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<!-- 2) Mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.3.1</version>
+		</dependency>
+		<!-- 3) Mybatis-Spring : 마이바티스와 스프링 연동을 위한 라이브러리 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+		<!-- => Test 추가 : Spring MVC Mybatis Test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		
+		<!-- ** REST API ~~~~~~~~~~~~~~~
+         https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind 
+         -> 객체를 JSON 포맷으로 전송할 때 사용  -->
       <dependency>
-         <groupId>org.springframework</groupId>
-         <artifactId>spring-test</artifactId>
-         <version>${org.springframework-version}</version>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+          <version>2.13.3</version>
       </dependency>
+      
+      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml 
+         -> XML 처리에 사용  -->
+      <dependency>
+          <groupId>com.fasterxml.jackson.dataformat</groupId>
+          <artifactId>jackson-dataformat-xml</artifactId>
+          <version>2.13.3</version>
+      </dependency>
+      
+      <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson
+         ->  gson : Java객체 -> JSON Type  &  JSON Type -> Java객체   -->
+      <dependency>
+         <groupId>com.google.code.gson</groupId>
+         <artifactId>gson</artifactId>
+         <version>2.8.5</version>
+      </dependency>
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
 
 	</dependencies>
 	<!-- Test -->
-	
-	<!-- 
-	5. 아랫쪽 두번째 <plugin> 의 <configuration> 
-		의 Java 버전 <source>1.8</source> <target>1.8</target> -->
+
+	<!-- 5. 아랫쪽 두번째 <plugin> 의 <configuration> 의 Java 버전 <source>1.8</source> 
+		<target>1.8</target> -->
 	<build>
 		<plugins>
 			<plugin>
