@@ -232,16 +232,15 @@ onload=function() {
        이 폼이 제출될 때 이 형식을 서버에 알려주며, 
        multipart/form-data로 지정이 되어 있어야 서버에서 정상적으로 데이터를 처리할 수 있다.     
 -->
-	<form action="join" method="post" enctype="multipart/form-data">
+	<form action="join" method="post" id="myform" enctype="multipart/form-data">
 		<div class="container">
 			<div class="signUp_wrap">
 				<div class="signUp_second_wrap">
 					<div class="login_signUp_wrap">
 						<!-- 로그인 / 회원가입 블럭 -->
 						<ul class="switch_button_wrap">
-							<li class="switch_button"><a
-								href=".https://lastteamproject.web.app/signUpPage/signUpPage.html">회원
-									가입</a></li>
+							<li class="switch_button">
+								회원	가입</li>
 						</ul>
 					</div>
 					<!-- 회원가입 양식 블럭 -->
@@ -310,7 +309,7 @@ onload=function() {
 							</li>
 							<!-- File Upload 기능 추가 -->
 							<li class="category ct1">사진 업로드<br>
-								<img alt="myImage" src="/resources/images/basicman1.jpg" class="select_img"><br>
+								<img alt="myImage" src="" class="select_img"><br>
 							 	<input type="file"	class="birth year selValue" name="uploadfilef" id="uploadfilef">
 								<script>
 	        						document.getElementById('uploadfilef').onchange=function(e){
@@ -337,6 +336,7 @@ onload=function() {
 					<div>
 						<input type="submit" onclick="return inCheck()" id="submitTag"
 							class="submit_box_wrap" value="가입" disabled>
+						&nbsp;<span class="submit_box_wrap" onclick="axiJoin()" id="submitTag">axiJoin</span>&nbsp;
 						<!-- => Tag 의 onclick 이벤트를 작성하고, onclick 이벤트핸들러가 가지고있던
                  기본동작인 submit 을 선택적으로 진행되도록 해준다. 
                  - submit 진행 : default (또는 return true)

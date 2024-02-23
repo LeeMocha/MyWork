@@ -4,10 +4,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -443,4 +447,41 @@ public class MemberController {
 
 	} // bCheckList
 
+	
+	@GetMapping(value="/axMemberList")
+	public String axMemberList(Model model) {
+		
+		model.addAttribute("banana", service.selectList());
+		
+		return "axTest/axMemberList";
+	}
+	
+	@GetMapping("/axPageList/{test1}/{test2}")
+	public String axPageList(Model model, SearchCriteria cri, PageMaker pageMaker,  HttpServletRequest request){
+		
+		String mappingName = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
+
+		// 1) Criteria 처리
+		cri.setSnoEno();
+
+		// 2) Service 처리
+		// => check 의 값을 선택하지 않은경우 check 값을 null 로 확실하게 해줘야함.
+		// mapper 에서 명확하게 구분할수 있도록해야 정확한 저리가능
+		if (cri.getCheck() != null && cri.getCheck().length < 1) {
+			cri.setCheck(null);
+		}
+
+		model.addAttribute("banana", service.mCheckList(cri));
+		// 3) View 처리 : pageMaker 활용
+		// => cri, totalRowsCount (read from DB)
+		pageMaker.setCri(cri);
+		pageMaker.setTotalRowsCount(service.checkRowsCount(cri));
+		pageMaker.setMapptinName(mappingName);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "axTest/axPageList";
+	}
+	
+
+	
 } // class
