@@ -2,6 +2,7 @@ package mapperInterface;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -52,5 +53,8 @@ public interface MemberMapper {
 	//   -> @Param: mapper 에서 #{...} 적용, 복수갯수 사용 가능 (단, 기본자료형 사용불가_JUnit 에서는 가능) 
 	@Select("SELECT * FROM member WHERE id = #{ii} AND jno = #{jno}")
 	MemberDTO selectParam(@Param("ii") String id, @Param("jno") int jno);
+	
+	@Delete("DELETE FROM member WHERE id = #{id}")
+	int axidelete(String id);
 	
 }

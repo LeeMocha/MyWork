@@ -34,4 +34,6 @@ public interface MemberService {
 	List<MemberDTO> mCheckList(SearchCriteria cri);
 	
 	int checkRowsCount(SearchCriteria cri);
+	
+	int axidelete(String id);
 }

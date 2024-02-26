@@ -78,6 +78,12 @@ public class BoardServiceImpl implements BoardService {
 	public int checkRowsCount(SearchCriteria cri) {
 		return mapper.checkRowsCount(cri);
 	}
+
+	@Override
+	public List<BoardDTO> idblist(String id) {
+		// TODO Auto-generated method stub
+		return mapper.idblist(id);
+	}
 	
 }
 

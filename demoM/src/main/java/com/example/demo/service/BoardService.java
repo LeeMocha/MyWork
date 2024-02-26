@@ -37,4 +37,6 @@ public interface BoardService {
 	
 	public int checkRowsCount(SearchCriteria cri);
 	
+	public List<BoardDTO> idblist(String id);
+	
 }

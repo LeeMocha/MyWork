@@ -71,7 +71,9 @@ function axiJoin(){
 	
 	axios.post(url, formData
 				  , { headers : {'Content-Type': 'multipart/form-data'}
-	// 세번째 인자에 formData 를 위해서
+	// 세번째 인자에 formData 를 위해서 Content-Type 설정을 무조건 해줘야함.
+	// form-data
+	
 	}).then( response => {
 		alert(`** join 성공 => ${response.data}`)
 		rsLoginf();

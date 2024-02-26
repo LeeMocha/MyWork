@@ -447,7 +447,6 @@ public class MemberController {
 
 	} // bCheckList
 
-	
 	@GetMapping(value="/axMemberList")
 	public String axMemberList(Model model) {
 		
@@ -456,32 +455,42 @@ public class MemberController {
 		return "axTest/axMemberList";
 	}
 	
-	@GetMapping("/axPageList/{test1}/{test2}")
-	public String axPageList(Model model, SearchCriteria cri, PageMaker pageMaker,  HttpServletRequest request){
-		
-		String mappingName = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
-
+	// ** Ajax Member_Paging
+	// => ver01: "/axmcri" 만 구현 (Search 기능만 구현했었음)
+	// => ver02: "/axmcheck" 이 요청도 처리할 수 있도록 구현  
+	//		-> mappingName 에 "check" 가 포함되어있다면 service 를 아래 메서드로 처리하도록 변경
+	//		   service.mCheckList(cri), mCheckRowsCount(cri) 호출
+	@GetMapping({"/axmcri","/axmcheck"})
+	public String axmcri(Model model,SearchCriteria cri, PageMaker pageMaker, HttpServletRequest request){
 		// 1) Criteria 처리
+		// => ver01: currPage, rowsPerPage 값들은 Parameter 로 전달되어 자동으로 cri에 set
+		// => ver02: ver01 + searchType, keyword 도 동일하게 cri에 set 되어져 들어옴
 		cri.setSnoEno();
+		
 
-		// 2) Service 처리
-		// => check 의 값을 선택하지 않은경우 check 값을 null 로 확실하게 해줘야함.
-		// mapper 에서 명확하게 구분할수 있도록해야 정확한 저리가능
-		if (cri.getCheck() != null && cri.getCheck().length < 1) {
-			cri.setCheck(null);
+		// 2) 요청 확인 & Service 처리
+		String mappingName = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
+		pageMaker.setCri(cri);
+		pageMaker.setMapptinName(mappingName);
+		
+		if(mappingName.contains("check")) {
+			// => check 조건 처리
+			model.addAttribute("banana", service.mCheckList(cri));
+			pageMaker.setTotalRowsCount(service.checkRowsCount(cri));
+			
+		} else {
+			// => Search 조건 처리
+			model.addAttribute("banana", service.mPageList(cri));
+			pageMaker.setTotalRowsCount(service.totalRowsCount(cri));
 		}
 
-		model.addAttribute("banana", service.mCheckList(cri));
 		// 3) View 처리 : pageMaker 활용
 		// => cri, totalRowsCount (read from DB)
-		pageMaker.setCri(cri);
-		pageMaker.setTotalRowsCount(service.checkRowsCount(cri));
-		pageMaker.setMapptinName(mappingName);
+		// => 요청명을 url 에 포함하기 위함
+
 		model.addAttribute("pageMaker", pageMaker);
 		
-		return "axTest/axPageList";
-	}
-	
-
+		return "axTest/axmPageList";
+	} // axmcri
 	
 } // class

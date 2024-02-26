@@ -25,11 +25,15 @@
 		<th>Birthday</th>
 		<th>추천인</th>
 		<th>Image</th>
+		<th>Delete</th>
 	</tr>
 	<c:if test="${ !empty requestScope.banana }">
 		<c:forEach var="m" items="${ requestScope.banana }">
 			<tr>
-				<td>${ m.id }</td>
+				<!-- ** idblist : id별 boardList
+					=> 선택된 id를 function 에 전달 (매개변수를 활용)
+					idblist('banana') 처럼 -->
+				<td><span class="textlink" onclick="idblist('${m.id}')">${ m.id }</span></td>
 				<%-- <td>${ m.password }</td> --%>
 				<td>${ m.name }</td>
 				<td>${ m.age }</td>
@@ -39,11 +43,12 @@
 				<td>${ m.birthday }</td>
 				<td>${ m.rid }</td>
 				<td style="text-align:center;"><img alt="myImage"  src="/resources/uploadImages/${ m.uploadfile }" width="40" height="50"></td>
+				<td><span class="textlink" onclick="axidelete('${m.id}')" id="${ m.id }" >Delete</span></td>
 			</tr>
 		</c:forEach>
 	</c:if>
 	<c:if test="${ empty requestScope.banana }">
-		<tr><td colspan="9"> </td></tr>
+		<tr><td colspan="10"> </td></tr>
 	</c:if>
 
 </table>

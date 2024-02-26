@@ -2,6 +2,8 @@ package mapperInterface;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Select;
+
 import com.example.demo.domain.BoardDTO;
 
 import pageTest.Criteria;
@@ -44,5 +46,8 @@ public interface BoardMapper {
 	public List<BoardDTO> bCheckList(SearchCriteria cri);
 	
 	public int checkRowsCount(SearchCriteria cri);
+	
+	@Select("SELECT * FROM board WHERE id = #{id}")
+	public List<BoardDTO> idblist(String id);
 	
 }

@@ -5,10 +5,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>** Spring_MVC02 MemberList **</title>
+<title>** Spring_Boot Axios MemberPageList **</title>
 <link rel="stylesheet" type="text/css" href="/resources/myLib/myStyle.css" >
 <script type="text/javascript">
 "use strict"
+//** 검색 & 페이징 포함한 요청의 Ajax 처리
+// => Ajax 요청 function 작성, url 을 매개변수로 전달 : axiMListCri(url) 
+// => Page 요청 : aTag -> span 으로 변경하고 function 으로 처리 
+// => Check 검색은 submit 을 사용하기 때문에 적용하지 않음(주석처리)
+
+// => Ajax 처리시에는 문서내부의 function이 인식 안되므로
+//    searchDB(), keywordClear() 모두 axTest03.js 에 작성  
+
 
 // 1. 검색조건 입력 후 버튼 클릭시 실행
 // => 입력된 값을 서버로 전송요청처리: location
@@ -19,21 +27,17 @@
 // 2) location 객체의 메서드
 // => href, replace('...'), reload() 
 function searchDB(){
-	let url = 'axPageList'
+	self.location = 'mPageList'
+/* 				+ '${pageMaker.makeQuery(1)}'
+					=> 하나의 jsp 문서로 다양한 요청을 처리하기위해 쿼리스트링에 url 을 포함했기 때문에
+					첫 요청에서는 makeQuery 메서드 사용할 수 없음 */
 				+ '?currPage=1&rowsPerPage=5'
 				+ '&searchType='+ document.getElementById('searchType').value
 				+ '&keyword='+ document.getElementById('keyword').value;
-	
-	axios.get(url)
-	.then( response => {
-				console.log("** response axPageList 성공");
-				document.getElementById('resultArea1').innerHTML = response.data;
-	}).catch(err => {
-		alert(`** response axPageList => ${err.message}`);
-	})
-	
-	document.getElementById('resultArea2').innerHTML = "";
-	
+				//** JS 코드 내부에서 el Tag 사용시 주의사항
+				//=> JS 코드의 스트링 내에서 사용한 el Tag 는 JSP 가 처리해주므로   
+				// 사용가능 하지만, 이 스크립트가 외부 문서인 경우에는 처리해주지 않으므로 주의
+				// 이 코드를 외부문서로 작성하면 "${pageMaker.makeQuery(1)}" 이 글자 그대로 적용되어 404 발생 
 } // searchDB
 //=> searchBtn 을 클릭하는 경우 : 검색조건 입력 후 첫 Page 요청
 //이때는 서버에 searchType, keyword 가 전달되기 이전이므로 
@@ -71,7 +75,7 @@ function checkClear(){
 </script>
 </head>
 <body>
-<h2>** Spring_MVC02 mPageList **</h2>
+<h2>** Spring_Boot Axios MemberPageList **</h2>
 <hr>
 <c:if test="${ !empty request.message }">
 => ${ request.message }<br><hr>
@@ -92,7 +96,7 @@ function checkClear(){
 	<br>
 	<br>
 	<!-- checkBox Test -->
-	<form action="mCheckList" method="get">
+ 	<form action="axmcheck" method="get">
 		<b>조 이름 : </b>
 		<!-- check 의 선택한 값 유지를 위한 코드 -->
       	<c:set var="ck1" value="false" />
@@ -108,12 +112,14 @@ function checkClear(){
         	<c:if test="${ jno =='7'}"> <c:set var="ck5" value="true" /> </c:if>
       	</c:forEach>
 	    <!-- --------------------------------- -->
-		<input type="checkbox" name="check" class="clear" value="1" ${ ck1 ? 'checked' : ''}>Business&nbsp;
-		<input type="checkbox" name="check" class="clear" value="2" ${ ck2 ? 'checked' : '' }>static&nbsp;
-		<input type="checkbox" name="check" class="clear" value="3" ${ ck3 ? 'checked' : ''}>칭찬해조&nbsp;
-		<input type="checkbox" name="check" class="clear" value="4" ${ ck4 ? 'checked' : ''}>카톡으로얘기하조&nbsp;
-		<input type="checkbox" name="check" class="clear" value="7" ${ ck5 ? 'checked' : ''}>칠면조&nbsp;
-		<input type="submit" value="Search">&nbsp;
+		<input type="checkbox" name="check" class="check clear" value="1" ${ ck1 ? 'checked' : ''}>Business&nbsp;
+		<input type="checkbox" name="check" class="check clear" value="2" ${ ck2 ? 'checked' : '' }>static&nbsp;
+		<input type="checkbox" name="check" class="check clear" value="3" ${ ck3 ? 'checked' : ''}>칭찬해조&nbsp;
+		<input type="checkbox" name="check" class="check clear" value="4" ${ ck4 ? 'checked' : ''}>카톡으로얘기하조&nbsp;
+		<input type="checkbox" name="check" class="check clear" value="7" ${ ck5 ? 'checked' : ''}>칠면조&nbsp;
+		<!-- <input type="submit" value="Search">&nbsp; -->
+		<button type="button" onclick="checkDB()">Check</button>&nbsp;
+		<!-- 폼태그 내부에서 button의 type 을 지정하지 않으면 default 가 submit이 되어버림 -->
 		<input type="reset" value="Clear" onclick="return checkClear()"><br><br>
 	</form>
 </div>
@@ -160,8 +166,10 @@ function checkClear(){
 <!-- 1) Prev, First  -->
 	<c:choose>
     	<c:when test="${ pageMaker.prev && pageMaker.spageNo > 1 }">
-    		<a href="${ pageMaker.searchQuery(1) }">&LT;&LT;</a>&nbsp;
-    		<a href="${ pageMaker.searchQuery(pageMake.spageNo-1) }">&LT;</a>&nbsp;&nbsp;
+    		<%-- <a href="${ pageMaker.searchQuery(1) }">&LT;&LT;</a>&nbsp;
+    		<a href="${ pageMaker.searchQuery(pageMaker.spageNo-1) }">&LT;</a>&nbsp;&nbsp; --%>
+    		<span class="textlink" onclick="axiMListCri('${pageMaker.searchQuery(1)}')">&LT;&LT;</span>&nbsp;
+    		<span class="textlink" onclick="axiMListCri('${pageMaker.searchQuery(pageMaker.spageNo-1)}')">&LT;</span>&nbsp;&nbsp;
     	</c:when> 
      	<c:otherwise>
      		<font color="#b6b6b6">&LT;&LT;&nbsp;&nbsp;&LT;&nbsp;&nbsp;</font>
@@ -175,7 +183,8 @@ function checkClear(){
 			<font color="black" size="5"><b>${ i }</b></font>&nbsp;
 		</c:if>
 		<c:if test="${ i ne pageMaker.cri.currPage }">
-			<a href="${ pageMaker.searchQuery(i) }">${ i }</a>&nbsp;
+			<%-- <a href="${ pageMaker.searchQuery(i) }">${ i }</a>&nbsp; --%>
+			<span class="textlink" onclick="axiMListCri('${pageMaker.searchQuery(i)}')">${ i }</span>&nbsp;
 		</c:if>
 	</c:forEach>
 <!-- 3) Next, LastPage 
@@ -183,8 +192,10 @@ function checkClear(){
       => ver02: searchQuery() 메서드 사용 -->
      <c:choose>
     	<c:when test="${ pageMaker.next && pageMaker.epageNo > 0 }">
-    		&nbsp;<a href="${ pageMaker.searchQuery(pageMaker.epageNo + 1) }">&GT;</a>&nbsp;
-    		<a href="${ pageMaker.searchQuery(pageMaker.lastPageNo) }">&GT;&GT;</a>
+    		<%-- &nbsp;<a href="${ pageMaker.searchQuery(pageMaker.epageNo + 1) }">&GT;</a>&nbsp;
+    		<a href="${ pageMaker.searchQuery(pageMaker.lastPageNo) }">&GT;&GT;</a> --%>
+    		<span class="textlink" onclick="axiMListCri('${pageMaker.searchQuery(pageMaker.epageNo+1)}')">&GT;</span>
+    		<span class="textlink" onclick="axiMListCri('${pageMaker.searchQuery(pageMaker.lastPageNo)}')">&GT;&GT;</span>
     	</c:when> 
      	<c:otherwise>
      		<font color="#b6b6b6">&nbsp;&GT;&nbsp;&GT;&GT;</font>

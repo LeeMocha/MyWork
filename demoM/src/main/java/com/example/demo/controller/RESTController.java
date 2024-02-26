@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.domain.BoardDTO;
 import com.example.demo.domain.JoDTO;
 import com.example.demo.domain.MemberDTO;
 import com.example.demo.domain.UserDTO;
+import com.example.demo.service.BoardService;
 import com.example.demo.service.JoService;
 import com.example.demo.service.MemberService;
 
@@ -128,6 +131,7 @@ public class RESTController {
 	
 	MemberService service;
 	JoService jservice;
+	BoardService bservice;
 	PasswordEncoder passwordEncoder;  // DemoConfig 에 빈 생성 해뒀기 때문에 AllArgConstructor 가능
 	
 	// ** REST Controller 의 다양한 return Type
@@ -475,4 +479,35 @@ public class RESTController {
 		
 	} // rsloginjj
 	
+	
+	
+	@GetMapping("/idblist/{id}")
+	public ResponseEntity<?> idbList(@PathVariable("id") String id, BoardDTO dto){
+		ResponseEntity<?> result = null;
+		
+		List<BoardDTO> list = bservice.idblist(id);
+		
+		if(list != null && list.size()>0) {
+			result = ResponseEntity.status(HttpStatus.OK).body(list);
+			log.info("** idblist 성공 **");
+		} else {
+			result = ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("** 찾으시는 id에 해당하는 글이 없습니다 **");
+			log.info("** idblist 실패 **");
+		}
+		
+		return result;
+	}
+	
+	
+	@DeleteMapping("/axidelete/{ii}")
+	public ResponseEntity<?> axidelete(@PathVariable("ii") String id){
+		
+		if( service.axidelete(id) > 0 ) {
+			log.info("** axidelete 성공 **");
+			return new ResponseEntity<String>("** 삭제에 성공하였습니다 **", HttpStatus.OK);
+		} else {
+			log.info("** axidelete 실패 **");
+			return new ResponseEntity<String>("** 삭제에 실패 하였습니다 **", HttpStatus.BAD_GATEWAY);
+		}
+	}
 } // class

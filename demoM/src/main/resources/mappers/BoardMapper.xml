@@ -158,6 +158,7 @@
 		ORDER BY root DESC, step ASC 
 		LIMIT #{sno}, #{rowsPerPage}
 	</select>
+	
 	<select id="bSearchRowsCount" resultType="int">
 		SELECT COUNT(*) FROM board
 		WHERE ( seq > 0 <include refid="search"></include>
@@ -251,13 +252,13 @@
    </select>
    
    <select id="checkRowsCount" resultType="int">
-   	SELECT COUNT(*) FROM board
-   	<if test="check != null">
-    	WHERE id IN 
-    	<foreach collection="check" item="it" open="(" close=")" separator=",">
-	    	#{it}
-    	</foreach>
-    </if>
+   		SELECT COUNT(*) FROM board
+   		<if test="check != null">
+    		WHERE id IN 
+    		<foreach collection="check" item="it" open="(" close=")" separator=",">
+	    		#{it}
+    		</foreach>
+    	</if>
    </select>
-	
+   
 </mapper>

@@ -116,5 +116,11 @@ public class MemberServiceImpl implements MemberService {
 	public int checkRowsCount(SearchCriteria cri) {
 		return mapper.checkRowsCount(cri);
 	}
+
+
+	@Override
+	public int axidelete(String id) {
+		return mapper.axidelete(id);
+	}
 	
 } // class
