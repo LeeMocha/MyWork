@@ -33,17 +33,42 @@
 				<!-- ** idblist : id별 boardList
 					=> 선택된 id를 function 에 전달 (매개변수를 활용)
 					idblist('banana') 처럼 -->
-				<td><span class="textlink" onclick="idblist('${m.id}')">${ m.id }</span></td>
+				<td>
+					<a href="#resultArea2" onclick="idblist('${m.id}')">${ m.id }</a>
+					<%-- <span class="textlink" onclick="idblist('${m.id}')">${ m.id }</span> 
+						=> 선택된 id를 function 에 전달 (매개변수를 활용)
+							idblist('banana')
+						=> a Tag 에 이벤트 적용시 책갈피 기능 활용 가능
+							-> href : 적용하지 않음 (이동하지 않음)
+							-> href="#id" : id 위치로 이동
+							-> href="#" : 최상단으로 이동
+							-> href="javascript:;" :  적용하지 않음 (이동하지 않음)
+							-> href="javascript:history.go(-1)" : 뒤로 가기 
+					--%>
+				</td>
 				<%-- <td>${ m.password }</td> --%>
 				<td>${ m.name }</td>
 				<td>${ m.age }</td>
-				<td>${ m.jno }</td>
+				<!-- ** Jo 정보 Div에 출력하기 -->
+				<td><span class="textlink" onmouseover="showjodetail(event, ${m.jno})" onmouseout="hidejodetail()">${ m.jno }</span></td>
 				<td>${ m.info }</td>
 				<td>${ m.point }</td>
 				<td>${ m.birthday }</td>
 				<td>${ m.rid }</td>
 				<td style="text-align:center;"><img alt="myImage"  src="/resources/uploadImages/${ m.uploadfile }" width="40" height="50"></td>
-				<td><span class="textlink" onclick="axidelete('${m.id}')" id="${ m.id }" >Delete</span></td>
+   <!--  ** Delete 기능 추가 
+            => 선택된 id를 function 에 전달 (매개변수를 활용)
+            => 결과는 성공/실패 여부만 전달: RESTController 로 
+            => 성공 : Deleted 로 변경, onclick 이벤트 해제 
+                     이를 위해 Delete Tag 를 function 에서 인식할수있어야함. 
+                     
+            ** function 에 이벤트객체 전달
+            => 이벤트핸들러의 첫번째 매개변수에 event 라는 이름으로 전달함.
+             => a Tag 와 span 사용시 e.target 값 비교
+                -> a Tag : "javascript:;" 
+                -> span  : [object HTMLSpanElement]          
+         -->
+				<td><span class="textlink" onclick="axidelete(event,'${m.id}')" id="${ m.id }" >Delete</span></td>
 			</tr>
 		</c:forEach>
 	</c:if>
@@ -52,6 +77,9 @@
 	</c:if>
 
 </table>
+<div id="content" >
+	
+</div>
 <c:if test="${!empty requestScope.message}">
 		<hr> ${ requestScope.message }<br><hr>
 </c:if>

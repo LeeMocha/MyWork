@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -510,4 +511,19 @@ public class RESTController {
 			return new ResponseEntity<String>("** 삭제에 실패 하였습니다 **", HttpStatus.BAD_GATEWAY);
 		}
 	}
+	
+	@GetMapping("/jodetail/{jno}")
+	public ResponseEntity<?> jodetail(@PathVariable("jno") int jno){
+		
+		JoDTO dto = jservice.selectOne(jno);
+		
+		if(dto != null) {
+			log.info("** joDetail 성공 **");
+			return new ResponseEntity<JoDTO>(dto, HttpStatus.OK);
+		} else {
+			log.info("** joDetail 실패 **");
+			return new ResponseEntity<JoDTO>(dto, HttpStatus.BAD_GATEWAY);
+		}
+	}
+	
 } // class

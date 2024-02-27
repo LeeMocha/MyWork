@@ -22,7 +22,7 @@ a:active { color:Blue; }
 }
 
  /* Span MenuLink */
-.textlink { color:Blue; font-weight:bold; }
+.textlink { color:Blue; font-weight:bold;}
 .textlink:hover { 
 	color:DeepSkyBlue; 
 	font-size:1.2em; 
@@ -39,8 +39,8 @@ a:active { color:Blue; }
 	display:none;
 	position:absolute;
 	z-index:100;
-	width:300px;
-	height:70px; 
+	width:400px;
+	height:150px; 
 	color: SaddleBrown;
 	background: Beige;
 }

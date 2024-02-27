@@ -165,6 +165,17 @@ function idblist(id){
 				<td>${ b.cnt }</td>
 			</tr>`;
 	} // for of
+	
+	  // ** for 간편출력 : of, in
+      // => in: undifined 는 통과하고, 배열(index Return), 객체(속성명 Return)
+      // => of: undifined 까지 모두출력 (순차출력과 동일), value 를 return, 
+      //        ES6 에 for ~ in 의 단점을 보완 개선하여 추가됨.
+      //        일반 객체에는 적용안되지만, (오류발생, 개발자모드로 확인가능)
+      //         Array, String, Map, Set, function의 매개변수 객체 와
+      //        이터러블 규약을 따르는 이터러블 객체 (Iterable Object) 는 적용됨
+      // => 이터러블 규약
+      //      내부에 Symbol.iterator (줄여서 @@iterator로 표현하기도함) 메서드가 구현되어 있어야 한다는 규약 
+	
 	resultHtml+= '</table>';
 	
 	document.getElementById('resultArea2').innerHTML = resultHtml;
@@ -186,18 +197,28 @@ function idblist(id){
 // 	=> 요청명 : "rest/axidelete/"+ PathVariable 적용
 //  => 결과는 성공 / 실패 여부만 전달받음, 그러므로 RESTController 사용
 //	=> 성공 : deleted 로 변경, onclick 해제
-function axidelete(id){
+
+//  => event 객체 적용하기
+//  => document.getElmentById(id) 대신 
+//	   e.target 로 대상 객체(태그) 인식가능
+function axidelete(e, id){
 	let url = "rest/axidelete/"+id;
 	alert(`idbList=${url}`);
 
 	axios.delete(url
 	).then(response => {
 		alert(response.data);
-		document.getElementById(id).innerHTML = 'Deleted';
-		document.getElementById(id).style.color = 'gray';
-		document.getElementById(id).style.fontWeight = 'bold';
-		document.getElementById(id).classList.remove('textlink');
-		document.getElementById(id).removeAttribute('onclick');
+		//document.getElementById(id).innerHTML = 'Deleted';
+		//document.getElementById(id).style.color = 'gray';
+		//document.getElementById(id).style.fontWeight = 'bold';
+		//document.getElementById(id).classList.remove('textlink');
+		//document.getElementById(id).removeAttribute('onclick');
+		
+		e.target.removeAttribute('onclick');
+		e.target.innerHTML = 'Deleted';
+		e.target.style.color = 'gray';
+		e.target.style.fontWeight = 'bold';
+		e.target.classList.remove('textlink');
 		
 	}).catch(err => {
 		if(err.response.status == '502'){
@@ -208,15 +229,70 @@ function axidelete(id){
 	});
 }
 
-// jno 위에 호버 했을때 mause over 로 pagex,y 사용해서 호버한 위치에 
-// 마우스 위치값 알기 위해서는
+// JoDetail
+// 1) mouseover : showDetail
+// => jno mouseover : JoDetail content Div에 출력 (마우스 포인터 위치에)
+// => request : axios, get , RESTController 에 "/jodetail"
+// => response : 성공시엔 body 에 JoDTO 객체로 
+function showjodetail(e, jno){
+	// ** 마우스 포인터 위치 확인 필요
+    // => 이벤트객체 활용
+    //     - event객체 (이벤트핸들러 첫번째 매개변수) 가 제공
+    //     - event객체 프로퍼티: type, target, preventDefault() 등 (JS 9장_Event.pptx 28p)   
+    //    - e.pageX, e.pageY : 전체 Page 기준
+    //     - e.clientX, e.clientY : 보여지는 화면 기준-> page Scroll 시에 불편함
+	console.log(`** e.pageX=${e.pageX}, e.pageY=${e.pageY}`);
+	console.log(`** e.clientX=${e.clientX}, e.clientY=${e.clientY}`);
+	
+	let url = "rest/jodetail/"+jno;
+	let mleft = e.pageX+20+'px';
+	let mtop = e.pageY;
+	
+	axios.get(url
+	).then(response => {
+		console.log(`response 성공 => ${response.data}`)
+		// ** JSON.stringify 적용 비교
+      let jj =JSON.stringify(response.data);   
+      // => Object -> JSON : Data를 나열해줌 
+      // => JS 객체포맷을 JSON 포맷화 하면 key:value 형태로 나열해줌
+      //    (즉, 하나의 긴문자열, 문자Type 이됨)
+      //    console.log 로 response.data 의 내용을 확인할때 사용하면 편리함.  
+      console.log(`** response 성공: JSON포맷 => ${jj}`);
 
-let jno = document.querySelectorAll(".jno");
+		let content = document.getElementById('content');
+		
+		content.innerHTML = `
+		<table>
+			<tr>
+				<th> JNO </th><td>${response.data.jno}</td>
+			</tr>
+			<tr>
+				<th> JNAME </th><td>${ response.data.jname }</td>
+			</tr>
+			<tr>
+				<th> CAPTAIN </th><td>${ response.data.captain }</td>
+			</tr>
+			<tr>
+				<th> PROJECT </th><td>${ response.data.project }</td>
+			</tr>
+			<tr>
+				<th> SLOGAN </th><td>${ response.data.slogan}</td>
+			</tr>
+		</table>
+		`
+		content.style.display ='block';
+		content.style.left = mleft + 'px';
+		content.style.top = mtop + 'px';
+		
+	}).catch(err => {
+		if(err.response.status=='502') alert(err.response.data)
+		alert("** showJoDetail 시스템 오류 => " + err.message);
+	})
+	
+} // showJoDetail
 
-for(let i = 0 ; i < jno.length ; i++){
-	jno[i].addEventListener('mouseover', (event) => {
-
-	  	
-
-	});
-}
+// 2) mouseout
+// => 화면에 표시되어있던 content Div가 사라지면 됨 
+function hidejodetail(){
+	document.getElementById('content').style.display = 'none';
+} // hideJoDetail
