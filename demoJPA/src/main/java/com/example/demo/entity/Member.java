@@ -21,7 +21,7 @@ import lombok.Data;
 //  이경우에는 이들을 옮겨주는 메서드가 필요하며, 라이브러리(ModelMapper, MapStruct 등)를 이용할수도 있고,
 //  DTO 또는 Service interface에 직접 작성하기도함.
 //  본예제는 Service interface에 default 메서드로 dtoToEntity() 와 entityToDto() 를 작성.
-//  그러나 List 처리시에 적용 구문이 어려워서 register 에서만 적용해봄
+//  그러나 List 처리시에 적용 구문이 어려워서 register(입력하는것) 에서만 적용해봄
 @Table(name="member")
 //  => Entity에 해당하는 테이블을 name 속성을 사용하여 매핑함.
 //  name 생략시에는 클래스의 이름이 매핑됨

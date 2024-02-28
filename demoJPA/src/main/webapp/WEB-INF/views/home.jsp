@@ -51,9 +51,15 @@
 	<br>
 	&nbsp;
 	<a href="board/bPageList">BPage</a>&nbsp;
-	&nbsp;
+
 	<a href="member/mPageList">MPage</a>&nbsp;
 	<a href="/axtestform">AjaxTest</a>&nbsp;
+	<br>
+	<br>
+	<a href="/ginsert">GInsert</a>&nbsp;
+	<a href="/glist">GList</a>&nbsp;
+	<a href="/gupdate">GUpdate</a>
+	<a href="/gpage">Gpage</a>
 
 </body>
 <script type="text/javascript">

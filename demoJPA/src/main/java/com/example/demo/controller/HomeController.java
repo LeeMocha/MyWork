@@ -2,19 +2,20 @@ package com.example.demo.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.example.demo.domain.GuestbookDTO;
+import com.example.demo.domain.PageRequestDTO;
+import com.example.demo.domain.PageResultDTO;
+import com.example.demo.entity.Guestbook;
+import com.example.demo.service.GuestbookService;
+
+import lombok.AllArgsConstructor;
 
 //-----------------------------------------------------------------
 //** Locale : (사건등의 현장), 다국어 지원 설정을 지원하는 클래스
@@ -74,9 +75,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 //** Lombok 의 @Log4j Test
 
+@AllArgsConstructor
 @Controller
 public class HomeController {
 
+	GuestbookService service; 
+	
 	@GetMapping("/home")
 	//@GetMapping(value={"/", "/home"})
 	// => void : 요청명.jsp 를 viewName 으로 처리함 (home.jsp)
@@ -98,5 +102,92 @@ public class HomeController {
 	public String axTestForm() {
 		return "axTest/axTestForm";
 	}
+	
+	@GetMapping("/ginsert")
+	public String ginsert() {
+		GuestbookDTO dto = GuestbookDTO.builder()
+							.title("제목 : JPA Insert Test")
+							.content("내용 : 입력이 술술 잘 된다 ~~")
+							.writer("글쓴이 : admin")
+							.build();
+		
+		System.out.println("** guest Insert => "+ service.register(dto));
+		
+		return "redirect:home";
+		
+	}
+	
+	@GetMapping("/glist")
+	public String glist() {
+		
+		List<Guestbook> list = service.selectList(); 
+		
+		for(Guestbook g : list) {
+			System.out.println(g+", regDate="+ g.getRegDate()+", modDate="+g.getModDate());
+		}
+		
+		return "redirect:home";
+	}
+	
+	@GetMapping("/gupdate")
+	public String gupdate() {
+		GuestbookDTO dto = GuestbookDTO.builder()
+							.gno(1L)
+							.title("제목 : JPA Update Test")
+							.content("내용 : 수정이 술술 잘 된다 ~~")
+							.writer("글쓴이 : banana")
+							.build();
+		
+		System.out.println("** guest Update => "+ service.register(dto));
+		
+		return "redirect:home";
+		
+	}
+	
+	@GetMapping("/gdelete")
+	// => QueryString으로 Test : /gdelete?gno=6
+	public String gdelete(Long gno) {
+		try {
+			service.delete(gno);
+			System.out.println("** gDelete 성공, gno =>" + gno);
+		} catch (Exception e) {
+			System.out.println("** gDelete Exception => " + e.toString());
+			// SQL 에서는 자료가 없으면 삭제 안하고 말지만
+			// JPA 에서는 자료가 없으면 
+			//  -> org.springframework.dao.EmptyResultDataAccessException 발생확인
+		}
+		
+		return "redirect:home";
+		
+	}
+	
+	@GetMapping("/gdetail")
+	// => QueryString으로 Test : /gdetail?gno=6
+	public String gdetail(Long gno) {
+		
+		System.out.println("** gDetail 성공, gno =>" + service.selectOne(gno));
+		
+		return "redirect:home";
+	}
+	
+	// ** JPA Paging & Sort
+    @GetMapping("/gpage")
+    public String gpage() {
+    	PageRequestDTO requestDTO = PageRequestDTO.builder()
+    								.page(1)
+    								.size(5)
+    								.build();
+    	
+    	PageResultDTO<GuestbookDTO, Guestbook> resultDTO =  
+    									service.pageList(requestDTO);
+    	
+    	System.out.println("** Page List => " + requestDTO.getPage());
+    	for(GuestbookDTO g : resultDTO.getDtoList()) {
+    		System.out.println(g);
+    	}
+    	
+    	return "redirect:home";
+    	
+    }
 	
 }
