@@ -101,9 +101,9 @@
 
 <c:if test="${not empty requestScope.message}">
 <hr>
-=> ${requestScope.message}<br><hr><br>
-</c:if>
+=> ${requestScope.message}<br><hr>
 <br>
+</c:if>
 &nbsp;<a href="pwUpdate">비밀번호 수정</a>&nbsp;
 <br>
 <hr>

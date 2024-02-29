@@ -28,7 +28,7 @@ import lombok.Data;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
+@Data	// Entity 의 개념과 DTO 의 개념을 같이 해야함
 public class Member {
 	
 	@Id	

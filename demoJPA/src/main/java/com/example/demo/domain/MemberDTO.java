@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MemberDTO {
+public class MemberDTO extends JoDTO{
 	// 1) private 멤버변수
 	private String id;			// primary_key
 	private String password;	// not null
@@ -49,5 +49,12 @@ public class MemberDTO {
 	
 	// 2) getter/setter
 	// 3) toString
+	public MemberDTO(String id , String name, int jno, String jname, String project) {
+		this.id = id;
+		this.name = name;
+		this.jno = jno;
+		super.jname = jname;
+		super.project = project;
+	}
 
 }

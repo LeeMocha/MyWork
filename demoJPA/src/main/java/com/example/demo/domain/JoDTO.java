@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 public class JoDTO {
 	
 	private int jno;
-	private String jname;
+	protected String jname;
 	private String captain;
-	private String project;
+	protected String project;
 	private String slogan;
 	private String cname;
 	

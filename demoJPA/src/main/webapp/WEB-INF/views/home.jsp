@@ -60,6 +60,7 @@
 	<a href="/glist">GList</a>&nbsp;
 	<a href="/gupdate">GUpdate</a>
 	<a href="/gpage">Gpage</a>
+	&nbsp;<a href="member/mjoinList">mJoinList</a>&nbsp;
 
 </body>
 <script type="text/javascript">

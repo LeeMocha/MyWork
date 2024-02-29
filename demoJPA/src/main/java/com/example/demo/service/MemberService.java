@@ -3,37 +3,32 @@ package com.example.demo.service;
 import java.util.List;
 
 import com.example.demo.domain.MemberDTO;
-
-import pageTest.SearchCriteria;
+import com.example.demo.entity.Member;
 
 public interface MemberService {
 
+	// ** findByJno
+	List<Member> findByJno(int jno);
+
 	// ** selectList
-	List<MemberDTO> selectList(); // selectList
+	List<Member> selectList(); // selectList
 
 	// ** selectOne
-	MemberDTO selectOne(String id); // selectOne
+	Member selectOne(String id); // selectOne
 
 	// ** insert
-	int insert(MemberDTO dto); // insert
-
-	// ** update
-	int update(MemberDTO dto); // update
+	Member save(Member entity); // insert & update
 
 	// ** delete
-	int delete(String id); // delete
+	void deleteById(String id); // delete
 
-	List<MemberDTO> selectJoList(int jno); // selectJoList
-	
-	int pwUpdate(MemberDTO dto); // pwUpdate
+	Member pwUpdate(Member entity); // pwUpdate
 
-	int totalRowsCount(SearchCriteria cri); // totalRowsCount
-	
-	List<MemberDTO> mPageList(SearchCriteria cri); // mPageList
-	
-	List<MemberDTO> mCheckList(SearchCriteria cri);
-	
-	int checkRowsCount(SearchCriteria cri);
-	
-	int axidelete(String id);
+	// ** Password Update
+	// => @Query 적용
+	void updatePassword(String id, String password);
+
+	// ** Join
+	List<MemberDTO> findMemberJoin();
+
 }

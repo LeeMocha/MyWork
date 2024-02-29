@@ -51,9 +51,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 //4. Service & Controller 구현 Test
 
-//** 방명록 실습
+//** 실습
+//=> 방명록
 //=> BaseEntity -> Guestbook: 프로젝트실행, Table_guestbook 생성확인 (console창과 MySql에서) 
 //-> GuestbookRepository, GuestbookDTO -> GuestbookService -> Controller, home 메뉴추가 -> Test
+//=> Member
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @EnableJpaAuditing	// BaseEntity 에서 Entity 변화 감지 리스너의 AuditingEntityListener 를 활성화 시키기 위한 설정
@@ -61,6 +63,7 @@ public class DemoJpaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoJpaApplication.class, args);
+
 	}
 
 }
