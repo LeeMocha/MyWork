@@ -19,8 +19,8 @@ import com.example.demo.entity.Guestbook;
 //=> ~Repository 를 통해 JPA 의 EntityManager 에 접근됨.
 //=> EntityManager : 영속 계층에 접근하여 엔티티에 대한 DB 작업을 제공함.
 //=> 주요 메서드
-//    - Insert : save(엔티티 객체)
 //    - Select : findAll(), findById(키), getOne(키) ..
+//    - Insert : save(엔티티 객체)
 //    - Update : save(엔티티 객체)
 //    - Delete : deleteById(키), delete(엔티티 객체)
 //=> Insert, Update 모두 save(엔티티 객체)를 사용하는 이유
@@ -31,6 +31,7 @@ import com.example.demo.entity.Guestbook;
 
 //=> JpaRepository의 save()메서드 동작원리
 //    - 새로운 entity이면 persist() 를 아니면 merge()를 호출
+//	  - EntityManager를 직접 사용하는 경우 직접 호출 할 수 있음
 
 public interface GuestbookRepository 
 					extends JpaRepository<Guestbook, Long>{

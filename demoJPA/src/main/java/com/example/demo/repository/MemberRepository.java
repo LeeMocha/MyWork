@@ -140,6 +140,8 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
 	// 1) JPA Repository Method Naming 규약을 활용한 sql 구문 작성
 	// => Jo 별 Member List 출력
+	// => 추상을 상속받은 인터페이스이기때문에 구현해야할것 같지만 
+	//    메서드 이름으로 유추하여 하이버네이트가 자동으로 xml를 채워 구현함
 	List<Member> findByJno(int jno);
 
 	// 2) @Query 를 이용한 직접 쿼리 선언
@@ -164,8 +166,12 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	//  - Table 명이 아닌 Entity 명 사용
 	@Query("SELECT new com.example.demo.domain.MemberDTO(m.id, m.name, m.jno, j.jname, j.project) FROM Member m LEFT JOIN Jo j ON m.jno=j.jno order by m.jno")
 	List<MemberDTO> findMemberJoin();
+	// => new com.example.demo.domain.MemberDTO(m.id, m.name, m.jno, j.jname, j.project)
+	// => new 연산자로 DTO 의 생성자 메서드를 호출하며 인자를 넣어줌
+	// => 그러므로 MemberDTO 는 JoDTO 를 상속받고 저 인자를 다 받을 수 있는 동일한 생성자 메서드가 필요함
 	
 //	@Query(nativeQuery = true
 //			, value = "SELECT id, name, m.jno jno, jname, project FROM member m LEFT JOIN jo j ON m.jno=j.jno order by m.jno")
 //	List<MemberDTO> findMemberJoin();
+//	=> 위의 NativeQuery 의 경우 하이버네이트가 임의로 만들어진 결과테이블을 DTO로 바로 사용할 수 없기 때문에 오류가 남.
 }
