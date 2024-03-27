@@ -105,13 +105,16 @@ public class TokenProvider {
 				
 			// => header에 들어갈 내용 및 서명을 하기 위한 SECRET_KEY
 			.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+			// 1번째 인자에 사용할 알고리즘을 인자로, 위에는 해시함수 HS512 를 줌
 			
 			// => payload에 들어갈 내용
-			.setSubject(entity.getId())  // sub: subject(유일해야함->userID 보관)
+			.setSubject(entity.getId())  // sub: subject(유일해야함->userID 보관) => 무조건 유일한 값으로 해야만 함. 다른 값은 안됨.
 			.setIssuer("demo app") 	   // iss: Issuer, 발급 주체
 			.setIssuedAt(new Date())   // iat: Issued At, 토큰 발급시간
 			.setExpiration(expiryDate) // exp: Expiration, 토큰 만료시간
 			.compact();
+		
+			// => payload를 만드는 과정. 암호화의 과정이라고 보면 되겠다.
 	}
 
 	// 2. 검증
@@ -126,6 +129,8 @@ public class TokenProvider {
 						.setSigningKey(SECRET_KEY)
 						.parseClaimsJws(token)
 						.getBody();
+		
+		// => payload의 복호화과정. 그걸 함과 동시에 getSubject 만 반환
 
 		return claims.getSubject();
 	}

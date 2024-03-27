@@ -56,7 +56,7 @@ public class AuthController {
 			
 		log.info("** idList 전송된 reqData_id 확인 => "+userId);
 		log.info("** session 에 보관한 loginID 확인 => "+session.getAttribute("loginID"));
-		// => session 값은 AuthController 의 /signin 요청 메서드에서 저장함.	
+		// => session 값은 AuthController 의 /login 요청 메서드에서 저장함.	
 		// => 8080접속 session 과 3000접속과는 origin이 다른 별개의 session 이므로
 		//    3000 요청으로 호출되어 실행되는 위 session의 값은 null 이다.
 		//	( SecurityConfig.java 의 filterChain 메서드의 
