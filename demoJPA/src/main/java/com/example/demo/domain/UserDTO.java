@@ -1,5 +1,8 @@
 package com.example.demo.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,6 +36,7 @@ public class UserDTO {
 	private String username;
 	private String email;
 	private String password; // 필요시 test용, password는 보관하지않는것이 원칙임 
+	private List<MemberRole> roleList = new ArrayList<>();
 	
 
 } //class

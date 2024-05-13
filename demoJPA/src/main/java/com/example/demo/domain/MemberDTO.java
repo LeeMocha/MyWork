@@ -1,60 +1,66 @@
 package com.example.demo.domain;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//** Lombok
-//setter, getter, toString, 생성자 등을 자동으로 만들어줌
+// ** DTO, VO, Entity
+// => MemberJoDTO 확인
 
-//컴파일 단계에서 애너테이션에 따라 여러가지 메소드나 코드를 자동적으로 추가해줌.
-//=> 모든 필드의  public setter 와  getter 를 사용하는 일반적인 경우 유용하며, 
-//=> 보안을 위해 setter 와  getter 의 접근 범위를 지정해야 하는 경우 등
-//=> 대규모의 프로젝트에서 다양한 setter 와 getter code를 작성하는 경우에는 충분히 고려해야함. 
+// ** Spring Security Role 인증 적용
+// => 스프링시큐리티 의 Role을 적용하기 위해서는 스프링시큐리티가 사용하는 형식의 객체로 만들어야함.
+//	-> org.springframework.security.core.userdetails.User 를 상속해야함.
+//	-> User클래스(조상) 의 생성자를 이용해 조상의 컬럼들까지 모두 초기화 하는 생성자 작성. 
+//	   즉, super(~,~,~) 호출하는 생성자 작성 필수
 
-//=> @Data 즉, 다음 애너테이션을 모두 한번에 처리 한다.
-//=> @Getter(모든 필드) : getter 생성하도록 지원
-//=> @Setter(모든 필드-final로 선언되지 않은) : setter를 생성하도록 지원
-//=> @ToString :  모든 필드를 출력하는 toString() 메소드 생성 
-
-// @Data
-//=> 정의된 모든 필드에 대한 
-//Getter, Setter, ToString 과 같은 모든 요소를 한번에 만들어주는 애너테이션.
-
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class MemberDTO extends JoDTO{
-	// 1) private 멤버변수
-	private String id;			// primary_key
-	private String password;	// not null
+public class MemberDTO extends User {
+	
+	private static final long serialVersionUID = 1L;
+	
+	// 1) private 맴버변수
+	private String id; // Primary_Key
+	private String password; // not null
 	private String name;
-	private	int age;
+	private int age;
 	private int jno;
 	private String info;
 	private double point;
 	private String birthday;
-	private String rid;			// 추천인
-	private String uploadfile;  // Table 보관용 (file-name 이 들어가게됨) 필드(컬럼)
+	private String rid; //추천인
+	private String uploadfile; // Table 보관용(File_Name)
 	
-	private MultipartFile uploadfilef;
-	// => form 의 upload_file 의 정보를 전달받기 위한 필드(컬럼)
-	//   -> MultipartFile (i) -> CommonsMultipartFile (구현체) -> dependency 추가 필요
-	//   -> 인터페이스 이기때문에 dependency 추가하기전에 오류가 안나니 주의!
-	//   -> pom.xml에 추가
-	//   -> 구현체(CommonsMultipartFile)를 생성해둬야함(servlet-context.xml) (주입을 위해서)
-	
-	
-	// 2) getter/setter
-	// 3) toString
-	public MemberDTO(String id , String name, int jno, String jname, String project) {
-		this.id = id;
-		this.name = name;
-		this.jno = jno;
-		super.jname = jname;
-		super.project = project;
-	}
+	// => Role 목록 추가
+	private List<String> roleList = new ArrayList<>();
 
-}
+	// => Security 인증을 위한 생성자 
+	public MemberDTO(String id, String pw, String name, int age, int jno, 
+					String info, double point, String birthday, String rid, 
+					String uploadfile, List<String> roleNames) {
+		super(id, pw, 
+			  roleNames.stream().map(str -> new SimpleGrantedAuthority("ROLE_"+str))
+			  .collect(Collectors.toList()));
+		
+		this.id = id;
+		this.password = pw;
+		this.name = name;
+		this.age = age;
+		this.jno = jno;
+		this.info = info;
+		this.point = point;
+		this.birthday = birthday;
+		this.rid = rid;
+		this.uploadfile = uploadfile;
+	} //생성자 
+	
+} //class

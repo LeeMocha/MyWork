@@ -1,84 +1,142 @@
 package com.example.demo.entity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.domain.MemberRole;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-
-@Entity	// DB table과 똑같은 Entity입니다를 알려주는 애노테이션 
-//	=> 해당클래스가 엔티티(테이블)를 위한 클래스이며, 
+@Entity
+//=> 해당클래스가 엔티티(테이블)를 위한 클래스이며, 
 //	해당클래스의 인스턴스들은 JPA의 엔티티매니저가 관리하는 엔티티 객체임을 의미함. 
-//  DTO 와는 용도를 분리해서 사용할것을 권장함.
-//  이경우에는 이들을 옮겨주는 메서드가 필요하며, 라이브러리(ModelMapper, MapStruct 등)를 이용할수도 있고,
-//  DTO 또는 Service interface에 직접 작성하기도함.
-//  본예제는 Service interface에 default 메서드로 dtoToEntity() 와 entityToDto() 를 작성.
-//  그러나 List 처리시에 적용 구문이 어려워서 register(입력하는것) 에서만 적용해봄
+//	DTO 와는 용도를 분리해서 사용할것을 권장함.
+//	이경우에는 이들을 옮겨주는 메서드가 필요하며, 라이브러리(ModelMapper, MapStruct 등)를 이용할수도 있고,
+//	DTO 또는 Service interface에 직접 작성하기도함.
+//	본예제는 Service interface에 default 메서드로 dtoToEntity() 와 entityToDto() 를 작성.
+//	그러나 List 처리시에 적용 구문이 어려워서 register 에서만 적용해봄
 @Table(name="member")
-//  => Entity에 해당하는 테이블을 name 속성을 사용하여 매핑함.
-//  name 생략시에는 클래스의 이름이 매핑됨
+//=> Entity에 해당하는 테이블을 name 속성을 사용하여 매핑함.
+//	name 생략시에는 클래스의 이름이 매핑됨
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data	// Entity 의 개념과 DTO 의 개념을 같이 해야함
 public class Member {
+
+	@Id
+	// => 테이블의 기본(Primary) key와 매핑함
 	
-	@Id	
-	// => 테이블의 기본(Primary) Key 와 매핑함
 	// ** @GeneratedValue(strategy = GenerationType.IDENTITY) 
 	// => id로 설정된 기본키의 값을 자동으로 생성할때 추가적으로 사용
 	// => strategy 속성: 키 생성전략
-	//      - GenerationType.AUTO: default, JPA구현체 (Hibernate 등)가 생성방식 결정  
-	//      - GenerationType.IDENTITY: DB가 생성방식 결정 (MySql, Maria 는 auto_increment)  
-	//      - GenerationType.SEQUENCE: DB의 sequence를 이용해 생성, @SequenceGenerator 와 같이 사용  
-	//      - GenerationType.TABLE: 키생성 전용 테이블을 생성해서 키생성, @TableGenerator 와 같이 사용
-	private String id;		
+	//		- GenerationType.AUTO: default, JPA구현체 (Hibernate 등)가 생성방식 결정  
+	//		- GenerationType.IDENTITY: DB가 생성방식 결정 (MySql, Maria 는 auto_increment)  
+	//		- GenerationType.SEQUENCE: DB의 sequence를 이용해 생성, @SequenceGenerator 와 같이 사용  
+	//		- GenerationType.TABLE: 키생성 전용 테이블을 생성해서 키생성, @TableGenerator 와 같이 사용
+
+	private String id; // Primary_Key
 	
-	@Column(updatable = false) 
-	// 별도로 수정한다고 애노테이션과 updatable 속성을 지정해줘야함
+	@Column(updatable = false) // 별도로 수정하기 위함
 	// ** @Column(name="password", nullable=false, length=10)
 	// => 프로퍼티의 이름과 테이블의 칼럼명 같다면 생략 가능하지만, 다른 경우에는 @Column 으로 지정
 	// => 컬럼에 다양한 속성 지정 가능 (nullable, name, length, insertable, updatable 등) 
 	// => JPA는 INSERT, UPDATE, DELETE의 동작이 보통과 다르기 때문에 예상치못한 실수를 방지하기 위해
-	//     insertable 과 updateble 속성을 false로 하여 읽기전용 매핑설정을 할수있다.
-	//     이렇게 하면 JPA가 자동으로 생성하는 쿼리에서 제외된다.
+	//	  insertable 과 updateble 속성을 false로 하여 읽기전용 매핑설정을 할수있다.
+	//	  이렇게 하면 JPA가 자동으로 생성하는 쿼리에서 제외된다.
 	// => columnDefinition 으로 default 값 지정 가능
 	//    @Column(columnDefinition="varchar(10) default 'apple'")
-	private String password;	
+	private String password; 
 	
 	private String name;
-	private	int age;
+	private int age;
 	private int jno;
 	private String info;
 	private double point;
 	private String birthday;
-	private String rid;			// 추천인
-	private String uploadfile;  // Table 보관용 (file-name 이 들어가게됨) 필드(컬럼)
+	private String rid; //추천인
+	private String uploadfile; // Table 보관용(File_Name)
 	
-	@Transient					// @Transient : SQL 구문 처리시 예외시켜줌 
-	private MultipartFile uploadfilef; // 만약 어플리케이션 프로퍼티에 auto update 설정을 하지 않으면 자동으로 속성을 추가해버릴 수 있음
+	@Transient // SQL 구문 처리시 제외시켜줌
+	private	MultipartFile uploadfilef;
 	/*
 	@Temporal(TemporalType.TIMESTAMP)
 	// => 날짜 타입의 변수에 선언하여 날짜타입을 매핑
-	//       TemporalType.DATE : 날짜 정보만 출력
-	//       TemporalType.TIME : 시간정보만 출력
-	//       TemporalType.TIMESTEMP : 날짜 시간 모두
+	// 		TemporalType.DATE : 날짜 정보만 출력
+	// 		TemporalType.TIME : 시간정보만 출력
+	// 		TemporalType.TIMESTEMP : 날짜 시간 모두
 	private Date myDate = new Date();
-	
 	
 	@Enumerated(EnumType.STRING) 
 	=> 열거타입에 대한 매핑은 @Enumerated 를 사용한다.  
 	=> EnumType.~~ : 열거형을 DB로 저장할 때 어떤 값으로 저장할지 결정하는속성
-	   - EnumType.STRING : 문자열로 저장 "val1, val2, val3" 
-	    - EnumType.ORDINAL: 인덱스가 저장 0 ~ 4
+		- EnumType.STRING : 문자열로 저장 "val1, val2, val3" 
+ 		- EnumType.ORDINAL: 인덱스가 저장 0 ~ 4
 	*/
 	
-}
+	/*~~ Spring Security 인증기능 추가 ~~~~~~~~~~~~~~~~~~~~~~
+	 
+	** @ElementCollection (JPA)
+	=> RDB에는 컬렉션과 같은 형태의 데이터를 컬럼에 저장할 수 없기 때문에, 
+		별도의 테이블을 생성하여 컬렉션을 관리해야한다.
+		이때 컬렉션 객체임을 JPA에게 알려주는 애너테이션
+	 
+	=> JPA는 @Entity가 아닌 Basic Type이나 Embeddable Class로 정의된 컬렉션을
+		테이블로 생성하며 One-To-Many 관계를(1:N)다룬다.
+
+	=> 생성된 컬렉션 Table 특징 
+		-> Entity 와 라이프 싸이클을 같이 하며 독립적으로 사용불가능.
+		-> 부모 Entity가 삭제될 경우 같이 삭제됨.
+		 ( 실제 클래스에 cascade 를 설정하는 옵션 없음. )
+		-> ElementCollection의 Fetch 전략은 기본이 Lazy 임.
+		-> 실제 테이블은 FK를 이용해서 생성됨.	
+
+	** @Builder.Default
+	 => 빌더패턴으로 생성 & 초기화 할때, 정의하지 않아도 기본으로 적용되는 default 값을 정의함
+	 	아래의 경우 빌더패턴에서 memberRoleList 를 초기화 하지 않으면 null 값이지만, 
+	 	@Builder.Default 를 붙여주면 ArrayList로 초기화된다.
+	    private List<MemberRole> memberRoleList = new ArrayList<>();
+	*/
+	
+	@ElementCollection(fetch = FetchType.LAZY)
+	@Builder.Default
+	private List<MemberRole> roleList = new ArrayList<>();
+	// => JPA는 member_role_list 라는 이름의 Child Table 을 찾음
+	//	- JPA 의 DB 표기법 : Entity명_카멜표기의 대문자는_로  
+	//	- 없으면 최초실행시 자동 생성시켜줌 (단, application.properties 설정에서 허용시)
+	//	- 부모 엔티티인 member 와 Foreign 관계 설정됨. 
+	//	- DemoJpaApplicationTests.java Test 코드 참고
+	public void addRole(MemberRole memberRole){
+		roleList.add(memberRole);
+	}
+
+	public void clearRole(){
+		roleList.clear();
+	}
+	
+	// => JWT token 발행시 사용됨
+	public Map<String, Object> claimList() {
+	    Map<String, Object> dataMap = new HashMap<>();
+	    dataMap.put("userId", this.id);
+	    //dataMap.put("pw",this.password);
+	    dataMap.put("roleList", this.roleList);
+
+	    return dataMap;
+	}
+	
+} //class

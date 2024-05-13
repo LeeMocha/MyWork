@@ -30,6 +30,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	// => Origin: Protocol, Host, 포트번호를 합친것으로 서버를 찾아가기위한 가장기본적인 주소
 	// => 요청헤더에는 이요청의 Origin이 담겨있고 서버는 이를 확인해 자신의 Origin과 다르면 이요청을 거절함 (403) 
 	//    그러므로 서버에서 이를 허용하는 방침을 설정해야함.
+	// => (CORS 개념 & 해결법 - 정리 All, Good)  
+	//	  https://inpa.tistory.com/entry/WEB-📚-CORS-💯-정리-해결-방법-👏 
 	
 	// ** [Spring Boot] CORS 해결 방법 3가지  (https://wonit.tistory.com/572 )
 	// => Filter, @CrossOrigin, WebMvcConfigurer
